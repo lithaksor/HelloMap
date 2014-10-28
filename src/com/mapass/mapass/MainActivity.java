@@ -167,16 +167,11 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 		//Insert marker
 		switch(v.getId()){
 			case R.id.buttonAccept:
-				View inputs=findViewById(R.id.markerTitle);
-		        inputs.setVisibility(View.INVISIBLE);
-		        inputs=findViewById(R.id.markerDescription);
-		        inputs.setVisibility(View.INVISIBLE);
-		        inputs=findViewById(R.id.buttonAccept);
-		        inputs.setVisibility(View.INVISIBLE);
-		        inputs=findViewById(R.id.spinnerColor);
-		        inputs.setVisibility(View.INVISIBLE);
-		        inputs=findViewById(R.id.buttonSave);
-		        inputs.setVisibility(View.VISIBLE);
+				findViewById(R.id.markerTitle).setVisibility(View.INVISIBLE);
+		        findViewById(R.id.markerDescription).setVisibility(View.INVISIBLE);
+		        findViewById(R.id.buttonAccept).setVisibility(View.INVISIBLE);
+		        findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
+		        findViewById(R.id.buttonSave).setVisibility(View.VISIBLE);
 		        
 		        try{
 			        // Get chosen color
@@ -237,6 +232,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 					Spinner spinner = (Spinner) findViewById(R.id.spinnerColor);
 			        color = spinner.getSelectedItem().toString();
 					float colorChosen = BitmapDescriptorFactory.HUE_RED; // para hacerlo de los dos idiomas pensar alguna manera
+					
 			        if(color.equals("Azul")|| color.equals("Blue"))
 			        	colorChosen = BitmapDescriptorFactory.HUE_AZURE;
 			        else if (color.equals("Rojo")|| color.equals("Red"))
@@ -616,28 +612,18 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 				case R.id.buttonUpdateMarker:
 					if(!markers.isEmpty()){
 						// Remove main menu
-				        inputs=findViewById(R.id.buttonTrazaruta);
-				        inputs.setVisibility(View.GONE);
-				        inputs=findViewById(R.id.buttonUpdateMarker);
-				        inputs.setVisibility(View.GONE);
+				        findViewById(R.id.buttonTrazaruta).setVisibility(View.GONE);
+				        findViewById(R.id.buttonUpdateMarker).setVisibility(View.GONE);
 				        
 				        // Show update menu
-						inputs=findViewById(R.id.markerTitle);
-				        inputs.setVisibility(View.VISIBLE);
-						inputs=findViewById(R.id.buttonDeletemarker);
-				        inputs.setVisibility(View.VISIBLE);
-				        inputs=findViewById(R.id.markerDescription);
-				        inputs.setVisibility(View.VISIBLE);
-				        inputs=findViewById(R.id.buttonSave);
-				        inputs.setVisibility(View.VISIBLE);
-				        inputs=findViewById(R.id.buttonCancel);
-				        inputs.setVisibility(View.VISIBLE);
-				        inputs=findViewById(R.id.spinnerColor);
-				        inputs.setVisibility(View.VISIBLE);
-				        inputs=findViewById(R.id.buttonLeft);
-				        inputs.setVisibility(View.INVISIBLE);
-				        inputs=findViewById(R.id.buttonRight);
-				        inputs.setVisibility(View.INVISIBLE);
+						findViewById(R.id.markerTitle).setVisibility(View.VISIBLE);
+						findViewById(R.id.buttonDeletemarker).setVisibility(View.VISIBLE);
+				        findViewById(R.id.markerDescription).setVisibility(View.VISIBLE);
+				        findViewById(R.id.buttonSave).setVisibility(View.VISIBLE);
+				        findViewById(R.id.buttonCancel).setVisibility(View.VISIBLE);
+				        findViewById(R.id.spinnerColor).setVisibility(View.VISIBLE);
+				        findViewById(R.id.buttonLeft).setVisibility(View.INVISIBLE);
+				        findViewById(R.id.buttonRight).setVisibility(View.INVISIBLE);
 				        
 				        modomodificaractivado = true;
 				        modomenuactivado = false;
@@ -653,24 +639,17 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 				// Botón que muestra el menú para trazar ruta
 				case R.id.buttonTrazaruta:
 					// Remove main menu
-			        inputs=findViewById(R.id.buttonTrazaruta);
-			        inputs.setVisibility(View.GONE);
-			        inputs=findViewById(R.id.buttonUpdateMarker);
-			        inputs.setVisibility(View.GONE);
+			        findViewById(R.id.buttonTrazaruta).setVisibility(View.GONE);
+			        findViewById(R.id.buttonUpdateMarker).setVisibility(View.GONE);
+			        
 			        
 					// hacer visibles boton de hacer ruta
-					inputs = findViewById(R.id.buttonCancel);
-			        inputs.setVisibility(View.VISIBLE);
-			        inputs = findViewById(R.id.buttonPositionToMarker);
-			        inputs.setVisibility(View.VISIBLE);
-			        inputs = findViewById(R.id.buttonMarkerToMarker);
-			        inputs.setVisibility(View.VISIBLE);
-					inputs = findViewById(R.id.spinnerColor);
-			        inputs.setVisibility(View.VISIBLE);
-			        inputs = findViewById(R.id.radioGroup1);
-			        inputs.setVisibility(View.VISIBLE);
-			        inputs = findViewById(R.id.spinnerMarkers);
-			        inputs.setVisibility(View.VISIBLE);
+					findViewById(R.id.buttonCancel).setVisibility(View.VISIBLE);
+			        findViewById(R.id.buttonPositionToMarker).setVisibility(View.VISIBLE);
+			        findViewById(R.id.buttonMarkerToMarker).setVisibility(View.VISIBLE);
+					findViewById(R.id.spinnerColor).setVisibility(View.VISIBLE);
+			        findViewById(R.id.radioGroup1).setVisibility(View.VISIBLE);
+			        findViewById(R.id.spinnerMarkers).setVisibility(View.VISIBLE);
 			        
 			        // Poner el radio button seleccionado
 
@@ -708,18 +687,13 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
 									// Close traceroute menu 
-									View botonesTrazaruta = findViewById(R.id.buttonCancel);
-						    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-						    		botonesTrazaruta = findViewById(R.id.spinnerColor);
-						    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-						    		botonesTrazaruta = findViewById(R.id.spinnerMarkers);
-						    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-						    		botonesTrazaruta = findViewById(R.id.buttonPositionToMarker);
-						    		botonesTrazaruta.setVisibility(View.GONE);
-						    		botonesTrazaruta = findViewById(R.id.radioGroup1);
-						    		botonesTrazaruta.setVisibility(View.GONE);
-						    		botonesTrazaruta = findViewById(R.id.buttonMarkerToMarker);
-						    		botonesTrazaruta.setVisibility(View.GONE);
+									findViewById(R.id.buttonCancel).setVisibility(View.INVISIBLE);
+						    		findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
+						    		findViewById(R.id.spinnerMarkers).setVisibility(View.INVISIBLE);
+						    		findViewById(R.id.buttonPositionToMarker).setVisibility(View.GONE);
+						    		findViewById(R.id.radioGroup1).setVisibility(View.GONE);
+						    		findViewById(R.id.buttonMarkerToMarker).setVisibility(View.GONE);
+						    		
 									final Spinner spinMarcadores = (Spinner) findViewById(R.id.spinnerMarkers);
 						    		RadioButton r = (RadioButton) findViewById(R.id.radioAndando);
 							        
@@ -791,18 +765,13 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 								// Close traceroute menu
-								View botonesTrazaruta = findViewById(R.id.buttonCancel);
-					    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-					    		botonesTrazaruta = findViewById(R.id.spinnerColor);
-					    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-					    		botonesTrazaruta = findViewById(R.id.spinnerMarkers);
-					    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-					    		botonesTrazaruta = findViewById(R.id.buttonPositionToMarker);
-					    		botonesTrazaruta.setVisibility(View.GONE);
-					    		botonesTrazaruta = findViewById(R.id.radioGroup1);
-					    		botonesTrazaruta.setVisibility(View.GONE);
-					    		botonesTrazaruta = findViewById(R.id.buttonMarkerToMarker);
-					    		botonesTrazaruta.setVisibility(View.GONE);
+								findViewById(R.id.buttonCancel).setVisibility(View.INVISIBLE);
+					    		findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
+					    		findViewById(R.id.spinnerMarkers).setVisibility(View.INVISIBLE);
+					    		findViewById(R.id.buttonPositionToMarker).setVisibility(View.GONE);
+					    		findViewById(R.id.radioGroup1).setVisibility(View.GONE);
+					    		findViewById(R.id.buttonMarkerToMarker).setVisibility(View.GONE);
+
 								final Spinner spinMarcadores = (Spinner) findViewById(R.id.spinnerMarkers);
 					    		RadioButton r = (RadioButton) findViewById(R.id.radioAndando);
 					    		
@@ -881,18 +850,12 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
 										// Close traceroute menu 
-										View botonesTrazaruta = findViewById(R.id.buttonCancel);
-							    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-							    		botonesTrazaruta = findViewById(R.id.spinnerColor);
-							    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-							    		botonesTrazaruta = findViewById(R.id.spinnerMarkers);
-							    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-							    		botonesTrazaruta = findViewById(R.id.buttonPositionToMarker);
-							    		botonesTrazaruta.setVisibility(View.GONE);
-							    		botonesTrazaruta = findViewById(R.id.radioGroup1);
-							    		botonesTrazaruta.setVisibility(View.GONE);
-							    		botonesTrazaruta = findViewById(R.id.buttonMarkerToMarker);
-							    		botonesTrazaruta.setVisibility(View.GONE);
+										findViewById(R.id.buttonCancel).setVisibility(View.INVISIBLE);
+							    		findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
+							    		findViewById(R.id.spinnerMarkers).setVisibility(View.INVISIBLE);
+							    		findViewById(R.id.buttonPositionToMarker).setVisibility(View.GONE);
+							    		findViewById(R.id.radioGroup1).setVisibility(View.GONE);
+							    		findViewById(R.id.buttonMarkerToMarker).setVisibility(View.GONE);
 							    		RadioButton r = (RadioButton) findViewById(R.id.radioAndando);
 								        
 							    		// obtener color elegido
@@ -966,18 +929,12 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
 									// Close traceroute menu 
-									View botonesTrazaruta = findViewById(R.id.buttonCancel);
-						    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-						    		botonesTrazaruta = findViewById(R.id.spinnerColor);
-						    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-						    		botonesTrazaruta = findViewById(R.id.spinnerMarkers);
-						    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-						    		botonesTrazaruta = findViewById(R.id.buttonPositionToMarker);
-						    		botonesTrazaruta.setVisibility(View.GONE);
-						    		botonesTrazaruta = findViewById(R.id.radioGroup1);
-						    		botonesTrazaruta.setVisibility(View.GONE);
-						    		botonesTrazaruta = findViewById(R.id.buttonMarkerToMarker);
-						    		botonesTrazaruta.setVisibility(View.GONE);
+									findViewById(R.id.buttonCancel).setVisibility(View.INVISIBLE);
+						    		findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
+						    		findViewById(R.id.spinnerMarkers).setVisibility(View.INVISIBLE);
+						    		findViewById(R.id.buttonPositionToMarker).setVisibility(View.GONE);
+						    		findViewById(R.id.radioGroup1).setVisibility(View.GONE);
+						    		findViewById(R.id.buttonMarkerToMarker).setVisibility(View.GONE);
 						    		RadioButton r = (RadioButton) findViewById(R.id.radioAndando);
 
 						    		// obtener color elegido
@@ -1049,10 +1006,9 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 	private void showSearchMenu() {
 		View okbutton= findViewById(R.id.buttonOK);
 		
-		if(okbutton.getVisibility() == View.GONE){
-			okbutton.setVisibility(View.VISIBLE);
-			okbutton = findViewById(R.id.editSearch);
-			okbutton.setVisibility(View.VISIBLE);
+		if(findViewById(R.id.buttonOK).getVisibility() == View.GONE){
+			findViewById(R.id.buttonOK).setVisibility(View.VISIBLE);
+			findViewById(R.id.editSearch).setVisibility(View.VISIBLE);
 			
 			if(idioma.equals("spanish"))
 				Toast.makeText(this, "Introduce una dirección y/o ciudad / pais", Toast.LENGTH_SHORT).show();
@@ -1060,9 +1016,8 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 				Toast.makeText(this, "Enter an address and/or city / country", Toast.LENGTH_SHORT).show();
 		}
 		else{
-			okbutton.setVisibility(View.GONE);
-			okbutton = findViewById(R.id.editSearch);
-			okbutton.setVisibility(View.GONE);
+			findViewById(R.id.buttonOK).setVisibility(View.GONE);
+			findViewById(R.id.editSearch).setVisibility(View.GONE);
 		}
 	}
 
@@ -1219,22 +1174,14 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
     @Override
 	public void onMapLongClick(LatLng marker) {
     	if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado){
-    		View inputs=findViewById(R.id.markerTitle);
-            inputs.setVisibility(View.VISIBLE);
-            inputs=findViewById(R.id.markerDescription);
-            inputs.setVisibility(View.VISIBLE);
-            inputs=findViewById(R.id.buttonAccept);
-            inputs.setVisibility(View.VISIBLE);
-            inputs=findViewById(R.id.buttonCancel);
-            inputs.setVisibility(View.VISIBLE);
-            inputs=findViewById(R.id.spinnerColor);
-            inputs.setVisibility(View.VISIBLE);
-            inputs=findViewById(R.id.buttonDeletemarker);
-            inputs.setVisibility(View.INVISIBLE);
-            inputs=findViewById(R.id.buttonLeft);
-            inputs.setVisibility(View.INVISIBLE);
-            inputs=findViewById(R.id.buttonRight);
-            inputs.setVisibility(View.GONE);
+    		findViewById(R.id.markerTitle).setVisibility(View.VISIBLE);
+            findViewById(R.id.markerDescription).setVisibility(View.VISIBLE);
+            findViewById(R.id.buttonAccept).setVisibility(View.VISIBLE);
+            findViewById(R.id.buttonCancel).setVisibility(View.VISIBLE);
+            findViewById(R.id.spinnerColor).setVisibility(View.VISIBLE);
+            findViewById(R.id.buttonDeletemarker).setVisibility(View.INVISIBLE);
+            findViewById(R.id.buttonLeft).setVisibility(View.INVISIBLE);
+            findViewById(R.id.buttonRight).setVisibility(View.GONE);
     		
             EditText title = (EditText)findViewById(R.id.markerTitle);
             EditText description = (EditText)findViewById(R.id.markerDescription);
@@ -1262,10 +1209,8 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 	@Override
 	public void onInfoWindowClick(Marker markertoupdate) {
 		if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado){
-			View opcionesMenu = findViewById(R.id.buttonTrazaruta);
-			opcionesMenu.setVisibility(View.VISIBLE);
-			opcionesMenu = findViewById(R.id.buttonUpdateMarker);
-			opcionesMenu.setVisibility(View.VISIBLE);
+			findViewById(R.id.buttonTrazaruta).setVisibility(View.VISIBLE);
+			findViewById(R.id.buttonUpdateMarker).setVisibility(View.VISIBLE);
 			
 			UiSettings mapInterface = googleMap.getUiSettings();
 			mapInterface.setScrollGesturesEnabled(false);
@@ -1311,18 +1256,12 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 	    		mapInterface.setScrollGesturesEnabled(true);
 	    	}
 	    	else if (modotrazarutaactivado){
-	    		View botonesTrazaruta = findViewById(R.id.buttonCancel);
-	    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-	    		botonesTrazaruta = findViewById(R.id.spinnerColor);
-	    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-	    		botonesTrazaruta = findViewById(R.id.spinnerMarkers);
-	    		botonesTrazaruta.setVisibility(View.INVISIBLE);
-	    		botonesTrazaruta = findViewById(R.id.buttonPositionToMarker);
-	    		botonesTrazaruta.setVisibility(View.GONE);
-	    		botonesTrazaruta = findViewById(R.id.buttonMarkerToMarker);
-	    		botonesTrazaruta.setVisibility(View.GONE);
-	    		botonesTrazaruta = findViewById(R.id.radioGroup1);
-	    		botonesTrazaruta.setVisibility(View.GONE);
+	    		findViewById(R.id.buttonCancel).setVisibility(View.INVISIBLE);
+	    		findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
+	    		findViewById(R.id.spinnerMarkers).setVisibility(View.INVISIBLE);
+	    		findViewById(R.id.buttonPositionToMarker).setVisibility(View.GONE);
+	    		findViewById(R.id.buttonMarkerToMarker).setVisibility(View.GONE);
+	    		findViewById(R.id.radioGroup1).setVisibility(View.GONE);
 
 	    		buttonTrazaruta.setVisibility(View.VISIBLE);
 	    		buttonUpdateMarker.setVisibility(View.VISIBLE);
@@ -1367,24 +1306,15 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 	 * Cierra el menú de inserción/modificación
 	 */
 	public void closeMenu(){
-		View inputs=findViewById(R.id.markerTitle);
-        inputs.setVisibility(View.INVISIBLE);
-        inputs=findViewById(R.id.markerDescription);
-        inputs.setVisibility(View.INVISIBLE);
-        inputs=findViewById(R.id.buttonAccept);
-        inputs.setVisibility(View.INVISIBLE);
-        inputs=findViewById(R.id.buttonCancel);
-        inputs.setVisibility(View.INVISIBLE);
-        inputs=findViewById(R.id.buttonSave);
-        inputs.setVisibility(View.GONE);
-        inputs=findViewById(R.id.spinnerColor);
-        inputs.setVisibility(View.INVISIBLE);
-        inputs=findViewById(R.id.buttonDeletemarker);
-        inputs.setVisibility(View.INVISIBLE);
-        inputs=findViewById(R.id.buttonLeft);
-        inputs.setVisibility(View.VISIBLE);
-        inputs=findViewById(R.id.buttonRight);
-        inputs.setVisibility(View.VISIBLE);
+		findViewById(R.id.markerTitle).setVisibility(View.INVISIBLE);
+        findViewById(R.id.markerDescription).setVisibility(View.INVISIBLE);
+        findViewById(R.id.buttonAccept).setVisibility(View.INVISIBLE);
+        findViewById(R.id.buttonCancel).setVisibility(View.INVISIBLE);
+        findViewById(R.id.buttonSave).setVisibility(View.GONE);
+        findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
+        findViewById(R.id.buttonDeletemarker).setVisibility(View.INVISIBLE);
+        findViewById(R.id.buttonLeft).setVisibility(View.VISIBLE);
+        findViewById(R.id.buttonRight).setVisibility(View.VISIBLE);
 	}
 	
 	/***
