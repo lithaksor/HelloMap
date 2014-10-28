@@ -53,9 +53,11 @@ import android.app.ProgressDialog;
  * 
  * @author VictorDeveloper
  * 
- * Prioridades:
+ * Prioridades TODO:
  * 
- * 4. Poner manual con nuevas opciones
+ * 1. Solucionar problema con el layout para que se vea bien en los distintos dispositivos moviles
+ * 2. Mejorar seguridad del código del SQLite Helper y añadir filtros a los inputs del usuario
+ * 3. Poner manual con nuevas opciones
  * 
  ************************************************************************************************************************************************************************************
  * 		
