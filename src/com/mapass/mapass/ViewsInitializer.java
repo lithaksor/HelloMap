@@ -1,6 +1,7 @@
 package com.mapass.mapass;
 
 import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Spinner;
 
@@ -21,26 +22,27 @@ public class ViewsInitializer {
         // Make inputs invisible and set clicklisteners
         View inputs=actividadMapa.findViewById(R.id.markerTitle);
         inputs.setVisibility(View.INVISIBLE);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         
         inputs=actividadMapa.findViewById(R.id.markerDescription);
         inputs.setVisibility(View.GONE);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         
         inputs=actividadMapa.findViewById(R.id.buttonAccept);
         inputs.setVisibility(View.INVISIBLE);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         
         inputs=actividadMapa.findViewById(R.id.buttonSave);
         inputs.setVisibility(View.GONE);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         
         inputs=actividadMapa.findViewById(R.id.buttonCancel);
         inputs.setVisibility(View.GONE);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         
         inputs=actividadMapa.findViewById(R.id.buttonDeletemarker);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         inputs.setVisibility(View.INVISIBLE); 
         
         inputs=actividadMapa.findViewById(R.id.buttonChangemap);
@@ -57,7 +59,7 @@ public class ViewsInitializer {
         inputs.setVisibility(View.VISIBLE);
         
         inputs=actividadMapa.findViewById(R.id.buttonOK);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         inputs.setVisibility(View.GONE);
         
         inputs=actividadMapa.findViewById(R.id.editSearch);
@@ -78,28 +80,28 @@ public class ViewsInitializer {
         
         inputs=actividadMapa.findViewById(R.id.buttonTrazaruta);
         inputs.setVisibility(View.GONE);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         
         inputs=actividadMapa.findViewById(R.id.buttonUpdateMarker);
         inputs.setVisibility(View.GONE);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         
         inputs=actividadMapa.findViewById(R.id.buttonPositionToMarker);
         inputs.setVisibility(View.GONE);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         
         inputs=actividadMapa.findViewById(R.id.buttonMarkerToMarker);
         inputs.setVisibility(View.GONE);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         
         inputs=actividadMapa.findViewById(R.id.radioGroup1);
         inputs.setVisibility(View.GONE);
-        inputs.setOnClickListener(actividadMapa);
+        inputs.setOnTouchListener(actividadMapa);
         
-        Spinner spinner=(Spinner) actividadMapa.findViewById(R.id.spinnerColor);
-        spinner.setVisibility(View.GONE);
-        spinner=(Spinner) actividadMapa.findViewById(R.id.spinnerMarkers);
-        spinner.setVisibility(View.GONE);
+        inputs= actividadMapa.findViewById(R.id.spinnerColor);
+        inputs.setVisibility(View.GONE);
+        inputs= actividadMapa.findViewById(R.id.spinnerMarkers);
+        inputs.setVisibility(View.GONE);
 	}
 	
 }

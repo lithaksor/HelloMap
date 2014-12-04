@@ -1459,17 +1459,25 @@ containing a value of this type.
         public static final int ic_plusone_tall_off_client=0x7f02007a;
         public static final int language=0x7f02007b;
         public static final int leftarrow=0x7f02007c;
-        public static final int lupa=0x7f02007d;
-        public static final int maps=0x7f02007e;
-        public static final int orangebutton=0x7f02007f;
-        public static final int powered_by_google_dark=0x7f020080;
-        public static final int powered_by_google_light=0x7f020081;
-        public static final int purplebutton=0x7f020082;
-        public static final int redbutton=0x7f020083;
-        public static final int rightarrow=0x7f020084;
-        public static final int spinnerbg=0x7f020085;
-        public static final int whitebutton=0x7f020086;
-        public static final int yellowbutton=0x7f020087;
+        public static final int lightbluebutton=0x7f02007d;
+        public static final int lightgobutton=0x7f02007e;
+        public static final int lightgreenbutton=0x7f02007f;
+        public static final int lightgreybutton=0x7f020080;
+        public static final int lightorangebutton=0x7f020081;
+        public static final int lightpurplebutton=0x7f020082;
+        public static final int lightredbutton=0x7f020083;
+        public static final int lightyellowbutton=0x7f020084;
+        public static final int lupa=0x7f020085;
+        public static final int maps=0x7f020086;
+        public static final int orangebutton=0x7f020087;
+        public static final int powered_by_google_dark=0x7f020088;
+        public static final int powered_by_google_light=0x7f020089;
+        public static final int purplebutton=0x7f02008a;
+        public static final int redbutton=0x7f02008b;
+        public static final int rightarrow=0x7f02008c;
+        public static final int spinnerbg=0x7f02008d;
+        public static final int whitebutton=0x7f02008e;
+        public static final int yellowbutton=0x7f02008f;
     }
     public static final class id {
         public static final int action_bar=0x7f08002e;
@@ -1630,7 +1638,8 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030016;
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main=0x7f030018;
-        public static final int support_simple_spinner_dropdown_item=0x7f030019;
+        public static final int activity_main2=0x7f030019;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001a;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 

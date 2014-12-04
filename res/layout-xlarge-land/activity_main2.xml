@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+ 
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/buttonModifymarker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Modificar marcador" 
+        android:background="@drawable/bluebutton" 
+        android:textColor="#ffffff" />
+    
+    <EditText
+        android:id="@+id/editplaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSearch"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="14dp"
+        android:ems="10" />
+
+     <Button
+         android:id="@+id/buttonplaceholder"
+         style="?android:attr/buttonStyleSmall"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignTop="@+id/editplaceholder"
+         android:layout_toRightOf="@+id/editplaceholder"
+         android:text="GO" />
+
+    <Button
+        android:id="@+id/buttonTrazaruta"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:background="@drawable/purplebutton"
+        android:clickable="true"
+        android:text="Trazar ruta"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/buttonUpdateMarker"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_x="0dp"
+        android:layout_y="97dp"
+        android:background="@drawable/yellowbutton"
+        android:clickable="true"
+        android:text="Modificar marcador"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/buttonAccept"
+        android:layout_width="511dp"
+        android:layout_height="61dp"
+        android:layout_x="107dp"
+        android:layout_y="0dp"
+        android:background="@drawable/yellowbutton"
+        android:text="Insertar"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="510dp"
+        android:layout_height="62dp"
+        android:layout_x="108dp"
+        android:layout_y="0dp"
+        android:background="@drawable/greenbutton"
+        android:text="Guardar"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="112dp"
+        android:layout_height="61dp"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:background="@drawable/redbutton"
+        android:text="Cancelar"
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:id="@+id/markerTitle"
+        android:layout_width="407dp"
+        android:layout_height="44dp"
+        android:layout_x="0dp"
+        android:layout_y="85dp"
+        android:background="@drawable/editwhite"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Título" />
+
+    <EditText
+        android:id="@+id/markerDescription"
+        android:layout_width="408dp"
+        android:layout_height="44dp"
+        android:layout_x="0dp"
+        android:layout_y="128dp"
+        android:background="@drawable/editwhite"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Descripción" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/buttonMarkerToMarker"
+        android:layout_width="407dp"
+        android:layout_height="44dp"
+        android:layout_x="0dp"
+        android:layout_y="85dp"
+        android:background="@drawable/greybutton"
+        android:text="Desde este marcador a otro"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/buttonPositionToMarker"
+        android:layout_width="408dp"
+        android:layout_height="44dp"
+        android:layout_x="0dp"
+        android:layout_y="128dp"
+        android:background="@drawable/greybutton"
+        android:text="Desde mi posición a un marcador"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/buttonDeletemarker"
+        android:layout_width="179dp"
+        android:layout_height="62dp"
+        android:layout_x="620dp"
+        android:layout_y="0dp"
+        android:background="@drawable/bluebutton"
+        android:text="Borrar"
+        android:textColor="#ffffff" />
+
+    <ImageButton
+        android:id="@+id/buttonLeft"
+        android:layout_width="74dp"
+        android:layout_height="74dp"
+        android:layout_x="6dp"
+        android:layout_y="776dp"
+        android:background="@drawable/leftarrow" />
+
+    <ImageButton
+        android:id="@+id/buttonRight"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="42dp"
+        android:layout_x="721dp"
+        android:layout_y="776dp"
+        android:background="@drawable/rightarrow" />
+
+    <ImageButton
+        android:id="@+id/buttonChangemap"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:layout_marginLeft="37dp"
+        android:layout_x="184dp"
+        android:layout_y="1101dp"
+        android:background="@drawable/changemap3" />
+
+    <ImageButton
+        android:id="@+id/buttonSearch"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:layout_x="234dp"
+        android:layout_y="1101dp"
+        android:clickable="true"
+        android:src="@drawable/lupa" />
+
+    <ImageButton
+        android:id="@+id/buttonHelp"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:layout_x="308dp"
+        android:layout_y="1101dp"
+        android:src="@drawable/help" />
+
+    <ImageButton
+        android:id="@+id/buttonLang"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:layout_x="386dp"
+        android:layout_y="1101dp"
+        android:src="@drawable/language" />
+
+    <EditText
+        android:id="@+id/editSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_marginLeft="14dp"
+        android:layout_x="186dp"
+        android:layout_y="1049dp"
+        android:background="@drawable/editwhite"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/buttonOK"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="416dp"
+        android:layout_y="1049dp"
+        android:background="@drawable/gobutton"
+        android:text="GO" />
+
+    <Spinner
+        android:id="@+id/spinnerColor"
+        android:layout_width="108dp"
+        android:layout_height="44dp"
+        android:layout_x="406dp"
+        android:layout_y="85dp"
+        android:background="@drawable/whitebutton"
+        android:spinnerMode="dropdown" />
+
+    <Spinner
+        android:id="@+id/spinnerMarkers"
+        android:layout_width="108dp"
+        android:layout_height="44dp"
+        android:layout_x="410dp"
+        android:layout_y="128dp"
+        android:background="@drawable/whitebutton" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        android:layout_x="-2dp"
+        android:layout_y="199dp"
+        android:background="@drawable/whitebutton" >
+
+        <RadioButton
+            android:id="@+id/radioAndando"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Voy andando" />
+
+        <RadioButton
+            android:id="@+id/radioVehiculo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/radioGroup1"
+            android:text="Voy en vehículo" />
+    </RadioGroup>
+ 
+</AbsoluteLayout>

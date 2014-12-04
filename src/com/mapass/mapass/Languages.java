@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 public class Languages {
@@ -29,13 +31,15 @@ public class Languages {
 		buttons = (Button) actividadPrincipal.findViewById(R.id.buttonUpdateMarker);
 		buttons.setText("Modify marker");
 		buttons = (Button) actividadPrincipal.findViewById(R.id.buttonPositionToMarker);
-		buttons.setText("Trace route from current position to this marker");
+		buttons.setText("From current position to a marker");
 		buttons = (Button) actividadPrincipal.findViewById(R.id.buttonMarkerToMarker);
-		buttons.setText("Trace route from selected marker to another marker");
-		buttons = (Button) actividadPrincipal.findViewById(R.id.radioVehiculo);
-		buttons.setText("I'll use a vehicle");
-		buttons = (Button) actividadPrincipal.findViewById(R.id.radioAndando);
-		buttons.setText("I'll use my legs");
+		buttons.setText("From selected marker to another marker");
+		
+		RadioGroup rgroup = (RadioGroup) actividadPrincipal.findViewById(R.id.radioGroup1);
+		RadioButton rbutton = (RadioButton) rgroup.getChildAt(0);
+		rbutton.setText("I'll use a vehicle");
+		rbutton = (RadioButton) rgroup.getChildAt(1);
+		rbutton.setText("I'll use my legs");
 		
 		EditText edittexts = (EditText) actividadPrincipal.findViewById(R.id.markerTitle);
 		edittexts.setText("Title");
@@ -73,14 +77,15 @@ public class Languages {
 		buttons = (Button) actividadPrincipal.findViewById(R.id.buttonUpdateMarker);
 		buttons.setText("Modificar marcador");
 		buttons = (Button) actividadPrincipal.findViewById(R.id.buttonPositionToMarker);
-		buttons.setText("Trazar ruta desde posición actual al marcador elegido");
+		buttons.setText("Desde mi posición a un marcador");
 		buttons = (Button) actividadPrincipal.findViewById(R.id.buttonMarkerToMarker);
-		buttons.setText("Trazar ruta desde el marcador seleccionado a otro");
+		buttons.setText("Desde este marcador a otro");
 
-		buttons = (Button) actividadPrincipal.findViewById(R.id.radioVehiculo);
-		buttons.setText("Voy en vehículo");
-		buttons = (Button) actividadPrincipal.findViewById(R.id.radioAndando);
-		buttons.setText("Voy andando");
+		RadioGroup rgroup = (RadioGroup) actividadPrincipal.findViewById(R.id.radioGroup1);
+		RadioButton rbutton = (RadioButton) rgroup.getChildAt(0);
+		rbutton.setText("Voy en vehículo");
+		rbutton = (RadioButton) rgroup.getChildAt(1);
+		rbutton.setText("Voy andando");
 		
 		EditText edittexts = (EditText) actividadPrincipal.findViewById(R.id.markerTitle);
 		edittexts.setText("Título");

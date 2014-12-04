@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.net.ConnectivityManager;
@@ -40,8 +41,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -82,7 +85,7 @@ import android.app.ProgressDialog;
  *
  */
 
-public class MainActivity extends FragmentActivity implements OnMarkerClickListener, LocationListener, OnClickListener,OnMapLongClickListener, OnInfoWindowClickListener   {
+public class MainActivity extends FragmentActivity implements OnMarkerClickListener, OnClickListener, LocationListener,OnMapLongClickListener, OnInfoWindowClickListener, OnTouchListener   {
     
 	
 	/**
@@ -111,7 +114,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
         
         // Initialize variables / ui
         setupViews = new ViewsInitializer(this);
@@ -160,62 +163,72 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
      * Buttons actions
      */
 	@SuppressWarnings("deprecation")
-	public void onClick(View v) {
+	public boolean onTouch(View v, MotionEvent event)  {
+		int action = event.getAction();
 		/**
 		 * Insertar el marcador en el mapa (pero sin llegar a guardarlo, sólo a modo de previsualización)
 		 */
 		//Insert marker
 		switch(v.getId()){
 			case R.id.buttonAccept:
-				findViewById(R.id.markerTitle).setVisibility(View.INVISIBLE);
-		        findViewById(R.id.markerDescription).setVisibility(View.INVISIBLE);
-		        findViewById(R.id.buttonAccept).setVisibility(View.INVISIBLE);
-		        findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
-		        findViewById(R.id.buttonSave).setVisibility(View.VISIBLE);
-		        
-		        try{
-			        // Get chosen color
-			        Spinner spinner = (Spinner) findViewById(R.id.spinnerColor);
-			        color = spinner.getSelectedItem().toString();
-			        float colorChosen = BitmapDescriptorFactory.HUE_RED;
-			        if(color.equals("Azul")|| color.equals("Blue"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_AZURE;
-			        else if (color.equals("Magenta"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_MAGENTA;
-			        else if (color.equals("Cyan"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_CYAN;
-			        else if (color.equals("Rosa")|| color.equals("Rose"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_ROSE;
-			        else if (color.equals("Violeta")|| color.equals("Violet"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_VIOLET;
-			        else if (color.equals("Rojo")|| color.equals("Red"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_RED;
-			        else if (color.equals("Verde")|| color.equals("Green"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_GREEN;
-			        else if (color.equals("Amarillo")|| color.equals("Yellow"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_YELLOW;
-			        else
-			        	colorChosen = BitmapDescriptorFactory.HUE_ORANGE;
+				if (action==MotionEvent.ACTION_DOWN )
+			    {
+					v.setBackgroundResource(R.drawable.lightyellowbutton);
+			    }
+			    if (action==MotionEvent.ACTION_UP)
+			    {
+			        v.setBackgroundResource(R.drawable.yellowbutton);
+			    
+					findViewById(R.id.markerTitle).setVisibility(View.INVISIBLE);
+			        findViewById(R.id.markerDescription).setVisibility(View.INVISIBLE);
+			        findViewById(R.id.buttonAccept).setVisibility(View.INVISIBLE);
+			        findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
+			        findViewById(R.id.buttonSave).setVisibility(View.VISIBLE);
 			        
-			        // Add marker on screen
-			        EditText title = (EditText)findViewById(R.id.markerTitle);
-			        EditText description = (EditText)findViewById(R.id.markerDescription);
-			        addMarker = new MarkerWithId();
-			        	addMarker.marker = googleMap.addMarker(new MarkerOptions()
-			        	.position(latLng)
-			        	.title(title.getText().toString())
-			        	.snippet(description.getText().toString())
-			        	.icon(BitmapDescriptorFactory.defaultMarker(colorChosen)));
-			        	
-			        if(idioma.equals("english"))
-		            	Toast.makeText(getBaseContext(), "Touch the Save button to keep the marker", Toast.LENGTH_LONG).show();
-		            else if(idioma.equals("spanish"))
-		            	Toast.makeText(getBaseContext(), "Pulsa el botón Guardar para dejar el marcador", Toast.LENGTH_LONG).show();
-			        	
-		        }
-		        catch(Exception e){
-		        	e.printStackTrace();
-		        }
+			        try{
+				        // Get chosen color
+				        Spinner spinner = (Spinner) findViewById(R.id.spinnerColor);
+				        color = spinner.getSelectedItem().toString();
+				        float colorChosen = BitmapDescriptorFactory.HUE_RED;
+				        if(color.equals("Azul")|| color.equals("Blue"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_AZURE;
+				        else if (color.equals("Magenta"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_MAGENTA;
+				        else if (color.equals("Cyan"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_CYAN;
+				        else if (color.equals("Rosa")|| color.equals("Rose"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_ROSE;
+				        else if (color.equals("Violeta")|| color.equals("Violet"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_VIOLET;
+				        else if (color.equals("Rojo")|| color.equals("Red"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_RED;
+				        else if (color.equals("Verde")|| color.equals("Green"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_GREEN;
+				        else if (color.equals("Amarillo")|| color.equals("Yellow"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_YELLOW;
+				        else
+				        	colorChosen = BitmapDescriptorFactory.HUE_ORANGE;
+				        
+				        // Add marker on screen
+				        EditText title = (EditText)findViewById(R.id.markerTitle);
+				        EditText description = (EditText)findViewById(R.id.markerDescription);
+				        addMarker = new MarkerWithId();
+				        	addMarker.marker = googleMap.addMarker(new MarkerOptions()
+				        	.position(latLng)
+				        	.title(title.getText().toString())
+				        	.snippet(description.getText().toString())
+				        	.icon(BitmapDescriptorFactory.defaultMarker(colorChosen)));
+				        	
+				        if(idioma.equals("english"))
+			            	Toast.makeText(getBaseContext(), "Touch the Save button to keep the marker", Toast.LENGTH_LONG).show();
+			            else if(idioma.equals("spanish"))
+			            	Toast.makeText(getBaseContext(), "Pulsa el botón Guardar para dejar el marcador", Toast.LENGTH_LONG).show();
+				        	
+			        }
+			        catch(Exception e){
+			        	e.printStackTrace();
+			        }
+			    }
 			break;
 			
 			/**
@@ -223,345 +236,282 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 			 */
 			// Save Marker 
 			case R.id.buttonSave:
-				closeMenu();
-		        
-		        // To save in case its modify/update marker
-		        try{
-			        EditText editTitle = (EditText) findViewById(R.id.markerTitle);
-					EditText editDescription = (EditText) findViewById(R.id.markerDescription);
-					Spinner spinner = (Spinner) findViewById(R.id.spinnerColor);
-			        color = spinner.getSelectedItem().toString();
-					float colorChosen = BitmapDescriptorFactory.HUE_RED; // para hacerlo de los dos idiomas pensar alguna manera
-					
-			        if(color.equals("Azul")|| color.equals("Blue"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_AZURE;
-			        else if (color.equals("Rojo")|| color.equals("Red"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_RED;
-			        else if (color.equals("Magenta"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_MAGENTA;
-			        else if (color.equals("Cyan"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_CYAN;
-			        else if (color.equals("Rosa")|| color.equals("Rose"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_ROSE;
-			        else if (color.equals("Violeta")|| color.equals("Violet"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_VIOLET;
-			        else if (color.equals("Verde")|| color.equals("Green"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_GREEN;
-			        else if (color.equals("Amarillo")|| color.equals("Yellow"))
-			        	colorChosen = BitmapDescriptorFactory.HUE_YELLOW;
-			        else
-			        	colorChosen = BitmapDescriptorFactory.HUE_ORANGE;
-					
-			        if(editTitle.getText().toString().isEmpty()){
-			        	if(idioma.equals("spanish"))
-				        	editTitle.setText("Sin título");
-			        	else
-				        	editTitle.setText("Untitled");
+		          if (action==MotionEvent.ACTION_DOWN )
+		            {
+		                v.setBackgroundResource(R.drawable.lightgreenbutton);
+		            }
+		            if (action==MotionEvent.ACTION_UP)
+		            {
+		                v.setBackgroundResource(R.drawable.greenbutton);
+		            
+					closeMenu();
+			        
+			        // To save in case its modify/update marker
+			        try{
+				        EditText editTitle = (EditText) findViewById(R.id.markerTitle);
+						EditText editDescription = (EditText) findViewById(R.id.markerDescription);
+						Spinner spinner = (Spinner) findViewById(R.id.spinnerColor);
+				        color = spinner.getSelectedItem().toString();
+						float colorChosen = BitmapDescriptorFactory.HUE_RED; // para hacerlo de los dos idiomas pensar alguna manera
+						
+				        if(color.equals("Azul")|| color.equals("Blue"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_AZURE;
+				        else if (color.equals("Rojo")|| color.equals("Red"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_RED;
+				        else if (color.equals("Magenta"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_MAGENTA;
+				        else if (color.equals("Cyan"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_CYAN;
+				        else if (color.equals("Rosa")|| color.equals("Rose"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_ROSE;
+				        else if (color.equals("Violeta")|| color.equals("Violet"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_VIOLET;
+				        else if (color.equals("Verde")|| color.equals("Green"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_GREEN;
+				        else if (color.equals("Amarillo")|| color.equals("Yellow"))
+				        	colorChosen = BitmapDescriptorFactory.HUE_YELLOW;
+				        else
+				        	colorChosen = BitmapDescriptorFactory.HUE_ORANGE;
+						
+				        if(editTitle.getText().toString().isEmpty()){
+				        	if(idioma.equals("spanish"))
+					        	editTitle.setText("Sin título");
+				        	else
+					        	editTitle.setText("Untitled");
+				        }
+				        
+				        addMarker.colorNumber = colorChosen;
+						addMarker.colorPosition=spinner.getSelectedItemPosition();
+				        
+				        // Add marker. If the marker isnt in the array, save it
+						if(addMarker!=null && !markers.contains(addMarker)){ //por ahora no se pueden arrastrar porque luego habria que gaurdar la nueva posición, lo dej para el futuro
+							addMarker.id=handler.addMarker(addMarker, color);
+							
+							markers.add(addMarker);
+							addMarker=null;	
+							modoaddmarker = false;
+							
+							if(idioma.equals("spanish"))
+								Toast.makeText(this, "Marcador guardado", Toast.LENGTH_SHORT).show();
+							else
+								Toast.makeText(this, "Marker saved", Toast.LENGTH_SHORT).show();
+						}
+				        
+						// Update marker. If the marker is already on the array, it means its being modified
+						if (markers.contains(addMarker)){
+					        addMarker.marker.setTitle(editTitle.getText().toString());
+							addMarker.marker.setSnippet(editDescription.getText().toString());
+							addMarker.marker.setIcon(BitmapDescriptorFactory.defaultMarker(colorChosen));
+							if(idioma.equals("spanish"))
+								Toast.makeText(this, "Cambios guardados", Toast.LENGTH_SHORT).show();
+							else 
+								Toast.makeText(this, "Changes saved", Toast.LENGTH_SHORT).show();
+							
+							
+							handler.updateMarker(addMarker, color);
+							modomodificaractivado=false;
+						}
+						
+						//Make map draggable again
+			    		UiSettings mapInterface = googleMap.getUiSettings();
+			    		mapInterface.setScrollGesturesEnabled(true);
+			    		
+						// Reset edittexts values
+						if(idioma.equals("spanish")){
+							editTitle.setText("Título");
+							editDescription.setText("Descripción");
+						}
+						else{
+							editTitle.setText("Title");
+							editDescription.setText("Description");
+						}
 			        }
-			        
-			        addMarker.colorNumber = colorChosen;
-					addMarker.colorPosition=spinner.getSelectedItemPosition();
-			        
-			        // Add marker. If the marker isnt in the array, save it
-					if(addMarker!=null && !markers.contains(addMarker)){ //por ahora no se pueden arrastrar porque luego habria que gaurdar la nueva posición, lo dej para el futuro
-						addMarker.id=handler.addMarker(addMarker, color);
-						
-						markers.add(addMarker);
-						addMarker=null;	
-						modoaddmarker = false;
-						
-						if(idioma.equals("spanish"))
-							Toast.makeText(this, "Marcador guardado", Toast.LENGTH_SHORT).show();
-						else
-							Toast.makeText(this, "Marker saved", Toast.LENGTH_SHORT).show();
-					}
-			        
-					// Update marker. If the marker is already on the array, it means its being modified
-					if (markers.contains(addMarker)){
-				        addMarker.marker.setTitle(editTitle.getText().toString());
-						addMarker.marker.setSnippet(editDescription.getText().toString());
-						addMarker.marker.setIcon(BitmapDescriptorFactory.defaultMarker(colorChosen));
-						if(idioma.equals("spanish"))
-							Toast.makeText(this, "Cambios guardados", Toast.LENGTH_SHORT).show();
-						else 
-							Toast.makeText(this, "Changes saved", Toast.LENGTH_SHORT).show();
-						
-						
-						handler.updateMarker(addMarker, color);
-						modomodificaractivado=false;
-					}
-					
-					//Make map draggable again
-		    		UiSettings mapInterface = googleMap.getUiSettings();
-		    		mapInterface.setScrollGesturesEnabled(true);
-		    		
-					// Reset edittexts values
-					if(idioma.equals("spanish")){
-						editTitle.setText("Título");
-						editDescription.setText("Descripción");
-					}
-					else{
-						editTitle.setText("Title");
-						editDescription.setText("Description");
-					}
-		        }
-		        catch(Exception e){
-		        	e.printStackTrace();
-		        }
+			        catch(Exception e){
+			        	e.printStackTrace();
+			        }
+			    }
 			break;
 			
 			/**
 			 * Cancela operación de insertado o modificado
 			 */
 			case R.id.buttonCancel:
-		        closeMenu();
-		        View buttonTrazaruta = findViewById(R.id.buttonTrazaruta);
-		        View buttonUpdateMarker = findViewById(R.id.buttonUpdateMarker);
-	    		
-		        if (modomodificaractivado){
-		    		closeMenu();
-		        	buttonTrazaruta.setVisibility(View.VISIBLE);
-		    		buttonUpdateMarker.setVisibility(View.VISIBLE);
-		    		modomodificaractivado = false;
-		    		modomenuactivado = true;
+	            if (action==MotionEvent.ACTION_DOWN )
+	            {
+	                v.setBackgroundResource(R.drawable.lightredbutton);
+	            }
+	            if (action==MotionEvent.ACTION_UP)
+	            {
+	                v.setBackgroundResource(R.drawable.redbutton);
+	            
+			        closeMenu();
+			        View buttonTrazaruta = findViewById(R.id.buttonTrazaruta);
+			        View buttonUpdateMarker = findViewById(R.id.buttonUpdateMarker);
 		    		
-		    		 try{
-				        	
-					        // Undo posible changes from edittexts
-					        EditText editTitle = (EditText) findViewById(R.id.markerTitle);
-							EditText editDescription = (EditText) findViewById(R.id.markerDescription);
-							editTitle.setText(markers.get(currentMarker).getMarker().getTitle());
-							editDescription.setText(markers.get(currentMarker).getMarker().getSnippet());
-							
-				        }
-				        catch(Exception e){
-				        	e.printStackTrace();
-				        }
-		    		
-		    	}
-		        else if (modotrazarutaactivado){
-		        	buttonTrazaruta.setVisibility(View.VISIBLE);
-		    		buttonUpdateMarker.setVisibility(View.VISIBLE);
-		    		
-		        	// Cerrar menu trazaruta
-		        	View menutrazaruta = findViewById(R.id.buttonCancel);
-		        	menutrazaruta.setVisibility(View.GONE);
-		        	menutrazaruta = findViewById(R.id.buttonPositionToMarker);
-		        	menutrazaruta.setVisibility(View.GONE);
-		        	menutrazaruta = findViewById(R.id.buttonMarkerToMarker);
-		        	menutrazaruta.setVisibility(View.GONE);
-		        	menutrazaruta = findViewById(R.id.spinnerColor);
-		        	menutrazaruta.setVisibility(View.INVISIBLE);
-		        	menutrazaruta = findViewById(R.id.spinnerMarkers);
-		        	menutrazaruta.setVisibility(View.INVISIBLE);
-		        	menutrazaruta = findViewById(R.id.radioGroup1);
-		        	menutrazaruta.setVisibility(View.GONE);
-		        	
-		        	modotrazarutaactivado = false;
-		    		modomenuactivado = true;
-		        }
-		        else if(modoaddmarker){
-		        	// Make the map draggable again
-		        	closeMenu();
-		        	modoaddmarker = false;
-		    		UiSettings mapInterface = googleMap.getUiSettings();
-		    		mapInterface.setScrollGesturesEnabled(true);
-		    		
-		    		// Delete marker if it was inserted but not saved
-			        if (addMarker != null && !markers.contains(addMarker))
-			        	addMarker.marker.remove();
-		        }
-		       
+			        if (modomodificaractivado){
+			    		closeMenu();
+			        	buttonTrazaruta.setVisibility(View.VISIBLE);
+			    		buttonUpdateMarker.setVisibility(View.VISIBLE);
+			    		modomodificaractivado = false;
+			    		modomenuactivado = true;
+			    		
+			    		 try{
+					        	
+						        // Undo posible changes from edittexts
+						        EditText editTitle = (EditText) findViewById(R.id.markerTitle);
+								EditText editDescription = (EditText) findViewById(R.id.markerDescription);
+								editTitle.setText(markers.get(currentMarker).getMarker().getTitle());
+								editDescription.setText(markers.get(currentMarker).getMarker().getSnippet());
+								
+					        }
+					        catch(Exception e){
+					        	e.printStackTrace();
+					        }
+			    		
+			    	}
+			        else if (modotrazarutaactivado){
+			        	buttonTrazaruta.setVisibility(View.VISIBLE);
+			    		buttonUpdateMarker.setVisibility(View.VISIBLE);
+			    		
+			        	// Cerrar menu trazaruta
+			        	View menutrazaruta = findViewById(R.id.buttonCancel);
+			        	menutrazaruta.setVisibility(View.GONE);
+			        	menutrazaruta = findViewById(R.id.buttonPositionToMarker);
+			        	menutrazaruta.setVisibility(View.GONE);
+			        	menutrazaruta = findViewById(R.id.buttonMarkerToMarker);
+			        	menutrazaruta.setVisibility(View.GONE);
+			        	menutrazaruta = findViewById(R.id.spinnerColor);
+			        	menutrazaruta.setVisibility(View.INVISIBLE);
+			        	menutrazaruta = findViewById(R.id.spinnerMarkers);
+			        	menutrazaruta.setVisibility(View.INVISIBLE);
+			        	menutrazaruta = findViewById(R.id.radioGroup1);
+			        	menutrazaruta.setVisibility(View.GONE);
+			        	
+			        	modotrazarutaactivado = false;
+			    		modomenuactivado = true;
+			        }
+			        else if(modoaddmarker){
+			        	// Make the map draggable again
+			        	closeMenu();
+			        	modoaddmarker = false;
+			    		UiSettings mapInterface = googleMap.getUiSettings();
+			    		mapInterface.setScrollGesturesEnabled(true);
+			    		
+			    		// Delete marker if it was inserted but not saved
+				        if (addMarker != null && !markers.contains(addMarker))
+				        	addMarker.marker.remove();
+			        }
+	            }
 			break;
 			/**
 			 * Eliminar marcador seleccionado
 			 */
 			case R.id.buttonDeletemarker:
-				try{
-					AlertDialog confirm = new AlertDialog.Builder(this).create();
-					if(idioma.equals("spanish")){
-						confirm.setTitle("Confirma");
-						confirm.setMessage("¿Estás segur@ de querer eliminar el marcador?");
-						confirm.setButton("Sí", new DialogInterface.OnClickListener() {
-							
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								deleteMarker();
-								modomodificaractivado=false;
-								closeMenu();
+	            if (action==MotionEvent.ACTION_DOWN )
+	            {
+	                v.setBackgroundResource(R.drawable.lightbluebutton);
+	            }
+	            if (action==MotionEvent.ACTION_UP)
+	            {
+	                v.setBackgroundResource(R.drawable.bluebutton);
+	            
+					try{
+						AlertDialog confirm = new AlertDialog.Builder(this).create();
+						if(idioma.equals("spanish")){
+							confirm.setTitle("Confirma");
+							confirm.setMessage("¿Estás segur@ de querer eliminar el marcador?");
+							confirm.setButton("Sí", new DialogInterface.OnClickListener() {
 								
-								//Make map draggable again
-					    		UiSettings mapInterface = googleMap.getUiSettings();
-					    		mapInterface.setScrollGesturesEnabled(true);
-							}
-						});
-						confirm.setButton2("No", new DialogInterface.OnClickListener() {
-							
-							@Override
-							public void onClick(DialogInterface dialog, int which) {}
-						});
-					}
-					else{
-						confirm.setTitle("Confirm");
-						confirm.setMessage("Are you sure you want to delete the marker?");
-						confirm.setButton("Yes", new DialogInterface.OnClickListener() {
-							
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								deleteMarker();
-								modomodificaractivado=false;
-								closeMenu();
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									deleteMarker();
+									modomodificaractivado=false;
+									closeMenu();
+									
+									//Make map draggable again
+						    		UiSettings mapInterface = googleMap.getUiSettings();
+						    		mapInterface.setScrollGesturesEnabled(true);
+								}
+							});
+							confirm.setButton2("No", new DialogInterface.OnClickListener() {
 								
-								//Make map draggable again
-					    		UiSettings mapInterface = googleMap.getUiSettings();
-					    		mapInterface.setScrollGesturesEnabled(true);
-							}
-						});
-						confirm.setButton2("No", new DialogInterface.OnClickListener() {
-							
-							@Override
-							public void onClick(DialogInterface dialog, int which) {}
-						});
-					}
-					confirm.show();
-				}
-				catch(Exception e){
-		        	e.printStackTrace();
-		        }
-			break;
-			
-			/**
-			 * Mover la cámara al siguiente marcador
-			 */
-			case R.id.buttonRight:
-				try{
-					if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado){
-						if(!markers.isEmpty()){
-							currentMarker++;
-							if (currentMarker>=markers.size()) 
-								currentMarker=0;
-							addMarker = markers.get(currentMarker);
-							googleMap.animateCamera(CameraUpdateFactory.newLatLng(addMarker.marker.getPosition()));
-							addMarker.marker.showInfoWindow();
-							
-							// Save current marker in case aplication is closed
-			                editor.putLong("id",addMarker.id);
-			    	        editor.commit();
-			    	        
-							changeEditTexts();
+								@Override
+								public void onClick(DialogInterface dialog, int which) {}
+							});
 						}
-						else if(idioma.equals("spanish"))
-							Toast.makeText(this, "No tienes marcadores", Toast.LENGTH_SHORT).show();
-						else
-							Toast.makeText(this, "You don't have markers", Toast.LENGTH_SHORT).show();
-					}
-				}
-				catch(Exception e){
-		        	e.printStackTrace();
-		        }
-			break;
-			
-			/**
-			 * Mover la cámara al anterior marcador
-			 */
-			case R.id.buttonLeft:
-				try{
-					if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado){
-						if(!markers.isEmpty()){
-							currentMarker--;
-							if (currentMarker<0) 
-								currentMarker=markers.size()-1;
-							addMarker = markers.get(currentMarker);
-							googleMap.animateCamera(CameraUpdateFactory.newLatLng(addMarker.marker.getPosition()));
-							addMarker.marker.showInfoWindow();
-							
-							// Save current marker in case aplication is closed
-			                editor.putLong("id",addMarker.id);
-			                editor.commit();
-			    	        
-							changeEditTexts();
+						else{
+							confirm.setTitle("Confirm");
+							confirm.setMessage("Are you sure you want to delete the marker?");
+							confirm.setButton("Yes", new DialogInterface.OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									deleteMarker();
+									modomodificaractivado=false;
+									closeMenu();
+									
+									//Make map draggable again
+						    		UiSettings mapInterface = googleMap.getUiSettings();
+						    		mapInterface.setScrollGesturesEnabled(true);
+								}
+							});
+							confirm.setButton2("No", new DialogInterface.OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {}
+							});
 						}
-						else if(idioma.equals("spanish"))
-							Toast.makeText(this, "No tienes marcadores", Toast.LENGTH_SHORT).show();
-						else
-							Toast.makeText(this, "You don't have markers", Toast.LENGTH_SHORT).show();
+						confirm.show();
+					}
+					catch(Exception e){
+			        	e.printStackTrace();
 					}
 				}
-				catch(Exception e){
-		        	e.printStackTrace();
-		        }
 			break;
+				
 			/**
 			 * Realiza y muestra el resultado de la dirección buscada
 			 */
 			case R.id.buttonOK:
-				try{
-					if(isNetworkAvailable() || is3gAvailable()){ 
-						EditText lugarbuscado = (EditText) findViewById(R.id.editSearch);
-						String aBuscar = lugarbuscado.getText().toString().trim();
-						aBuscar = lugarbuscado.getText().toString().trim();
-						
-						if(!aBuscar.equals("")){
-							aBuscar = aBuscar.replace(" ", "+");
-							new FindByAddress().execute(aBuscar);
+				if (action==MotionEvent.ACTION_DOWN )
+	            {
+	                v.setBackgroundResource(R.drawable.lightgobutton);
+	            }
+	            if (action==MotionEvent.ACTION_UP)
+	            {
+	                v.setBackgroundResource(R.drawable.gobutton);
+					try{
+						if(isNetworkAvailable() || is3gAvailable()){ 
+							EditText lugarbuscado = (EditText) findViewById(R.id.editSearch);
+							String aBuscar = lugarbuscado.getText().toString().trim();
+							aBuscar = lugarbuscado.getText().toString().trim();
 							
+							if(!aBuscar.equals("")){
+								aBuscar = aBuscar.replace(" ", "+");
+								new FindByAddress().execute(aBuscar);
+								
+							}
+							else{
+								if(idioma.equals("english"))
+									Toast.makeText(MainActivity.this, "Input a valid address", Toast.LENGTH_SHORT).show();
+								else if(idioma.equals("spanish"))
+									Toast.makeText(MainActivity.this, "Introduce una dirección válida", Toast.LENGTH_SHORT).show();
+							}
 						}
 						else{
 							if(idioma.equals("english"))
-								Toast.makeText(MainActivity.this, "Input a valid address", Toast.LENGTH_SHORT).show();
+								Toast.makeText(MainActivity.this, "You need to have access to internet in order to find a place", Toast.LENGTH_SHORT).show();
 							else if(idioma.equals("spanish"))
-								Toast.makeText(MainActivity.this, "Introduce una dirección válida", Toast.LENGTH_SHORT).show();
+								Toast.makeText(MainActivity.this, "Necesitas tener acceso a internet para buscar un lugar", Toast.LENGTH_SHORT).show();
 						}
-					}
-					else{
-						if(idioma.equals("english"))
-							Toast.makeText(MainActivity.this, "You need to have access to internet in order to find a place", Toast.LENGTH_SHORT).show();
-						else if(idioma.equals("spanish"))
-							Toast.makeText(MainActivity.this, "Necesitas tener acceso a internet para buscar un lugar", Toast.LENGTH_SHORT).show();
-					}
-				}catch(Exception e){
-						if(idioma.equals("english"))
-							Toast.makeText(this, "Error while trying to find location", Toast.LENGTH_SHORT).show();
-						else if(idioma.equals("spanish"))
-							Toast.makeText(this, "Error al intentar encontrar la dirección", Toast.LENGTH_SHORT).show();
-					e.printStackTrace();
-				}		
-			break;
-			/**
-			 * Cambia la vista del mapa
-			 */
-			case R.id.buttonChangemap:
-				try{
-					if(googleMap.getMapType() == GoogleMap.MAP_TYPE_HYBRID){
-						mapType = GoogleMap.MAP_TYPE_NORMAL;
-					}
-					else{
-						mapType =GoogleMap.MAP_TYPE_HYBRID;
-					}
-					googleMap.setMapType(mapType);
-					
-					if(idioma.equals("spanish"))
-						Toast.makeText(MainActivity.this, "Tipo de mapa cambiado", Toast.LENGTH_SHORT).show();
-					else if(idioma.equals("english"))
-						Toast.makeText(MainActivity.this, "Map Type changed", Toast.LENGTH_SHORT).show();
-					
-					
-				}
-				catch(Exception e){
-		        	e.printStackTrace();
-		        }
-			break;
-			/**
-			 * botón que abre la barra para buscar una posición a través de una dirección
-			 */
-			case R.id.buttonSearch:
-				showSearchMenu();
-			break;
-			/**
-			 * Enseña el manual
-			 */
-			case R.id.buttonHelp:
-				showManual();
+					}catch(Exception e){
+							if(idioma.equals("english"))
+								Toast.makeText(this, "Error while trying to find location", Toast.LENGTH_SHORT).show();
+							else if(idioma.equals("spanish"))
+								Toast.makeText(this, "Error al intentar encontrar la dirección", Toast.LENGTH_SHORT).show();
+						e.printStackTrace();
+					}		
+	            }
 			break;
 			
 			/**
@@ -581,35 +531,16 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 				edit.setText("");
 			break;
 			
-			/**
-			 * Cambia el idioma de la app
-			 */
-			case R.id.buttonLang:
-
-				Languages lang = new Languages(this);
-				
-				if(idioma.equals("spanish")){
-					idioma="english";
-			        editor.putString("idioma","english");
-			        editor.commit();
-					
-			        lang.toEnglish();
-					
-					Toast.makeText(this, "Language: English", Toast.LENGTH_SHORT).show();
-					
-				}
-				else{
-					idioma="spanish";
-					editor.putString("idioma","spanish");
-			        editor.commit();
-					
-					lang.toSpanish();
-					
-					Toast.makeText(this, "Idioma: Español", Toast.LENGTH_SHORT).show();
-				}
-				break;
 				// Muestra el menú modificar que antes estaba en onwindowinfo
 				case R.id.buttonUpdateMarker:
+			        if (action==MotionEvent.ACTION_DOWN )
+			        {
+			            v.setBackgroundResource(R.drawable.lightyellowbutton);
+			        }
+			        if (action==MotionEvent.ACTION_UP)
+			        {
+			            v.setBackgroundResource(R.drawable.yellowbutton);
+			        
 					if(!markers.isEmpty()){
 						// Remove main menu
 				        findViewById(R.id.buttonTrazaruta).setVisibility(View.GONE);
@@ -633,11 +564,20 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 						Toast.makeText(this, "No tienes ningún marcador añadido", Toast.LENGTH_SHORT).show();
 					else
 						Toast.makeText(this, "You have no markers", Toast.LENGTH_SHORT).show();
+			        }
 				break;
 				
 				
 				// Botón que muestra el menú para trazar ruta
 				case R.id.buttonTrazaruta:
+		            if (action==MotionEvent.ACTION_DOWN )
+		            {
+		                v.setBackgroundResource(R.drawable.lightpurplebutton);
+		            }
+		            if (action==MotionEvent.ACTION_UP)
+		            {
+		                v.setBackgroundResource(R.drawable.purplebutton);
+		            
 					// Remove main menu
 			        findViewById(R.id.buttonTrazaruta).setVisibility(View.GONE);
 			        findViewById(R.id.buttonUpdateMarker).setVisibility(View.GONE);
@@ -672,6 +612,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 			        
 					modotrazarutaactivado = true;
 					modomenuactivado = false;
+		            }
 				break;
 				
 				//Botón para trazar ruta desde posición actual a marcador seleccionado
@@ -837,6 +778,14 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 					break;
 					//Trazar ruta de marcador a marcador
 				case R.id.buttonMarkerToMarker:
+			        if (action==MotionEvent.ACTION_DOWN )
+			        {
+			            v.setBackgroundResource(R.drawable.lightgreybutton);
+			        }
+			        if (action==MotionEvent.ACTION_UP)
+			        {
+			            v.setBackgroundResource(R.drawable.greybutton);
+			        }
 					confirm = new AlertDialog.Builder(this).create();
 					final Spinner spinMarcadores = (Spinner) findViewById(R.id.spinnerMarkers);
 					if(idioma.equals("spanish")){
@@ -998,13 +947,14 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 					}
 					break;
 		}
+		return true;
     } // End of click actions
     
 	/**
 	 * Muestra el menú de buscar por dirección
 	 */
 	private void showSearchMenu() {
-		View okbutton= findViewById(R.id.buttonOK);
+		findViewById(R.id.buttonOK);
 		
 		if(findViewById(R.id.buttonOK).getVisibility() == View.GONE){
 			findViewById(R.id.buttonOK).setVisibility(View.VISIBLE);
@@ -1499,6 +1449,141 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 	@Override
 	public void onProviderDisabled(String provider) {
 		
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch(v.getId()){
+		/**
+		 * botón que abre la barra para buscar una posición a través de una dirección
+		 */
+		case R.id.buttonSearch:
+			showSearchMenu();
+		break;
+		
+		/**
+		 * Enseña el manual
+		 */
+		case R.id.buttonHelp:
+			showManual();
+		break;
+		
+		/**
+		 * Cambia la vista del mapa
+		 */
+		case R.id.buttonChangemap:
+			try{
+				if(googleMap.getMapType() == GoogleMap.MAP_TYPE_HYBRID){
+					mapType = GoogleMap.MAP_TYPE_NORMAL;
+				}
+				else{
+					mapType =GoogleMap.MAP_TYPE_HYBRID;
+				}
+				googleMap.setMapType(mapType);
+				
+				if(idioma.equals("spanish"))
+					Toast.makeText(MainActivity.this, "Tipo de mapa cambiado", Toast.LENGTH_SHORT).show();
+				else if(idioma.equals("english"))
+					Toast.makeText(MainActivity.this, "Map Type changed", Toast.LENGTH_SHORT).show();
+				
+				
+			}
+			catch(Exception e){
+	        	e.printStackTrace();
+	        }
+		break;
+		
+		/**
+		 * Cambia el idioma de la app
+		 */
+		case R.id.buttonLang:
+
+			Languages lang = new Languages(this);
+			
+			if(idioma.equals("spanish")){
+				idioma="english";
+		        editor.putString("idioma","english");
+		        editor.commit();
+				
+		        lang.toEnglish();
+				
+				Toast.makeText(this, "Language: English", Toast.LENGTH_SHORT).show();
+				
+			}
+			else{
+				idioma="spanish";
+				editor.putString("idioma","spanish");
+		        editor.commit();
+				
+				lang.toSpanish();
+				
+				Toast.makeText(this, "Idioma: Español", Toast.LENGTH_SHORT).show();
+			}
+			break;
+			
+			/**
+			 * Mover la cámara al siguiente marcador
+			 */
+			case R.id.buttonRight:
+				try{
+					if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado){
+						if(!markers.isEmpty()){
+							currentMarker++;
+							if (currentMarker>=markers.size()) 
+								currentMarker=0;
+							addMarker = markers.get(currentMarker);
+							googleMap.animateCamera(CameraUpdateFactory.newLatLng(addMarker.marker.getPosition()));
+							addMarker.marker.showInfoWindow();
+							
+							// Save current marker in case aplication is closed
+			                editor.putLong("id",addMarker.id);
+			    	        editor.commit();
+			    	        
+							changeEditTexts();
+						}
+						else if(idioma.equals("spanish"))
+							Toast.makeText(this, "No tienes marcadores", Toast.LENGTH_SHORT).show();
+						else
+							Toast.makeText(this, "You don't have markers", Toast.LENGTH_SHORT).show();
+					}
+				}
+				catch(Exception e){
+		        	e.printStackTrace();
+		        }
+			break;
+			
+			/**
+			 * Mover la cámara al anterior marcador
+			 */
+			case R.id.buttonLeft:
+				try{
+					if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado){
+						if(!markers.isEmpty()){
+							currentMarker--;
+							if (currentMarker<0) 
+								currentMarker=markers.size()-1;
+							addMarker = markers.get(currentMarker);
+							googleMap.animateCamera(CameraUpdateFactory.newLatLng(addMarker.marker.getPosition()));
+							addMarker.marker.showInfoWindow();
+							
+							// Save current marker in case aplication is closed
+			                editor.putLong("id",addMarker.id);
+			                editor.commit();
+			    	        
+							changeEditTexts();
+						}
+						else if(idioma.equals("spanish"))
+							Toast.makeText(this, "No tienes marcadores", Toast.LENGTH_SHORT).show();
+						else
+							Toast.makeText(this, "You don't have markers", Toast.LENGTH_SHORT).show();
+					}
+				}
+				catch(Exception e){
+		        	e.printStackTrace();
+		        }
+			break;
+		}
 	}
 
 	

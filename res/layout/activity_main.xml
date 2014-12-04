@@ -92,6 +92,7 @@
         android:layout_height="45dp"
         android:layout_alignTop="@+id/markerTitle"
         android:layout_toRightOf="@+id/markerTitle" 
+        android:layout_alignParentRight="true"
         android:background="@drawable/whitebutton"
         android:spinnerMode="dropdown"
         />
@@ -138,8 +139,8 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_alignTop="@+id/editplaceholder"
-        android:layout_toRightOf="@+id/editplaceholder"
+        android:layout_alignBaseline="@+id/editSearch"
+        android:layout_toRightOf="@+id/editSearch"
         android:text="GO" 
         android:background="@drawable/gobutton"/>
     
@@ -216,7 +217,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/markerTitle"
         android:background="@drawable/greybutton"
-        android:text="Trazar ruta desde posición actual al marcador elegido"
+        android:text="Desde mi posición a un marcador"
         android:textColor="#ffffff" />
 
     <Button
@@ -227,7 +228,7 @@
         android:layout_below="@+id/markerTitle"
         android:layout_toLeftOf="@+id/buttonLang"
         android:background="@drawable/greybutton"
-        android:text="Trazar ruta desde este marcador a otro"
+        android:text="Desde este marcador a otro"
         android:textColor="#ffffff" />
 
     <RadioGroup
@@ -237,7 +238,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/buttonTrazaruta"
-        android:layout_marginTop="120dp"
+        android:layout_alignBottom="@id/buttonLeft"
         android:background="@drawable/whitebutton" >
 
         <RadioButton
@@ -263,6 +264,7 @@
         android:id="@+id/spinnerMarkers"
         android:layout_width="108dp"
         android:layout_height="40dp"
+        android:layout_alignParentRight="true"
         android:layout_alignLeft="@+id/buttonLang"
         android:background="@drawable/whitebutton"
         android:layout_below="@+id/spinnerColor" />
