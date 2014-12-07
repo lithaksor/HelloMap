@@ -349,6 +349,7 @@ int drawable rightarrow 0x7f02008c
 int drawable spinnerbg 0x7f02008d
 int drawable whitebutton 0x7f02008e
 int drawable yellowbutton 0x7f02008f
+int id ButtonStreetView 0x7f08006b
 int id action_bar 0x7f08002e
 int id action_bar_activity_content 0x7f080027
 int id action_bar_container 0x7f08002d
@@ -369,6 +370,7 @@ int id buttonCancel 0x7f080053
 int id buttonChangemap 0x7f08005a
 int id buttonDeletemarker 0x7f080055
 int id buttonHelp 0x7f08005e
+int id buttonInsertar 0x7f080069
 int id buttonLang 0x7f080060
 int id buttonLeft 0x7f080057
 int id buttonMarkerToMarker 0x7f080064
@@ -378,6 +380,7 @@ int id buttonPositionToMarker 0x7f080063
 int id buttonRight 0x7f080058
 int id buttonSave 0x7f080054
 int id buttonSearch 0x7f080059
+int id buttonStreetViewNoMarker 0x7f08006a
 int id buttonTrazaruta 0x7f080061
 int id buttonUpdateMarker 0x7f080062
 int id buttonplaceholder 0x7f08005f
@@ -444,6 +447,7 @@ int id showTitle 0x7f080019
 int id spinnerColor 0x7f080056
 int id spinnerMarkers 0x7f080068
 int id split_action_bar 0x7f080030
+int id streetviewpanorama 0x7f08006c
 int id strict_sandbox 0x7f080009
 int id submit_area 0x7f08004b
 int id tabMode 0x7f080015
@@ -482,7 +486,8 @@ int layout abc_search_view 0x7f030016
 int layout abc_simple_decor 0x7f030017
 int layout activity_main 0x7f030018
 int layout activity_main2 0x7f030019
-int layout support_simple_spinner_dropdown_item 0x7f03001a
+int layout activity_streetview 0x7f03001a
+int layout support_simple_spinner_dropdown_item 0x7f03001b
 int string abc_action_bar_home_description 0x7f07001b
 int string abc_action_bar_up_description 0x7f07001c
 int string abc_action_menu_overflow_description 0x7f07001d

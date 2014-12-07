@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -58,6 +59,7 @@ import android.app.ProgressDialog;
  * 
  * Prioridades TODO:
  * 
+ * 0. Comprobar si el teclado está sacado, y si lo está esconderlo (cuando se vaya a hacer alguna operación, ya que puede descuadrarse el menú)
  * 1. Solucionar problema con el layout para que se vea bien en los distintos dispositivos moviles
  * 2. Mejorar seguridad del código del SQLite Helper y añadir filtros a los inputs del usuario
  * 3. Poner manual con nuevas opciones
@@ -98,6 +100,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
     private int currentMarker; 
     public int mapType;
     private LatLng latLng;
+    private LatLng onLongClickMarker;
     public MySQLiteHelper handler;
     private String color;
     private int coloruta;
@@ -347,11 +350,14 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 			        closeMenu();
 			        View buttonTrazaruta = findViewById(R.id.buttonTrazaruta);
 			        View buttonUpdateMarker = findViewById(R.id.buttonUpdateMarker);
-		    		
+			        View buttonStreetView = findViewById(R.id.ButtonStreetView);
+			        
 			        if (modomodificaractivado){
 			    		closeMenu();
 			        	buttonTrazaruta.setVisibility(View.VISIBLE);
 			    		buttonUpdateMarker.setVisibility(View.VISIBLE);
+			    		buttonStreetView.setVisibility(View.VISIBLE);
+			    		
 			    		modomodificaractivado = false;
 			    		modomenuactivado = true;
 			    		
@@ -372,6 +378,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 			        else if (modotrazarutaactivado){
 			        	buttonTrazaruta.setVisibility(View.VISIBLE);
 			    		buttonUpdateMarker.setVisibility(View.VISIBLE);
+			    		buttonStreetView.setVisibility(View.VISIBLE);
 			    		
 			        	// Cerrar menu trazaruta
 			        	View menutrazaruta = findViewById(R.id.buttonCancel);
@@ -545,6 +552,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 						// Remove main menu
 				        findViewById(R.id.buttonTrazaruta).setVisibility(View.GONE);
 				        findViewById(R.id.buttonUpdateMarker).setVisibility(View.GONE);
+				        findViewById(R.id.ButtonStreetView).setVisibility(View.INVISIBLE);
 				        
 				        // Show update menu
 						findViewById(R.id.markerTitle).setVisibility(View.VISIBLE);
@@ -581,6 +589,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 					// Remove main menu
 			        findViewById(R.id.buttonTrazaruta).setVisibility(View.GONE);
 			        findViewById(R.id.buttonUpdateMarker).setVisibility(View.GONE);
+			        findViewById(R.id.ButtonStreetView).setVisibility(View.INVISIBLE);
 			        
 			        
 					// hacer visibles boton de hacer ruta
@@ -954,6 +963,93 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 						}
 			        }
 					break;
+				case R.id.ButtonStreetView:
+					if (action==MotionEvent.ACTION_DOWN )
+			        {
+			            v.setBackgroundResource(R.drawable.lightgreenbutton);
+			        }
+			        if (action==MotionEvent.ACTION_UP)
+			        {
+			            v.setBackgroundResource(R.drawable.greenbutton);
+			            
+			            findViewById(R.id.buttonTrazaruta).setVisibility(View.GONE);
+				        findViewById(R.id.buttonUpdateMarker).setVisibility(View.GONE);
+				        findViewById(R.id.ButtonStreetView).setVisibility(View.INVISIBLE);
+			            
+			            Intent i = new Intent (this, StreetView.class);
+			            
+			            modomenuactivado = false;
+			            
+			            i.putExtra("lat", markers.get(currentMarker).getMarker().getPosition().latitude);
+			            i.putExtra("long", markers.get(currentMarker).getMarker().getPosition().longitude);
+			            startActivity(i);
+			        }
+					break;
+				case R.id.buttonInsertar:
+					if (action==MotionEvent.ACTION_DOWN )
+			        {
+			            v.setBackgroundResource(R.drawable.lightpurplebutton);
+			        }
+			        if (action==MotionEvent.ACTION_UP)
+			        {
+			            v.setBackgroundResource(R.drawable.purplebutton);
+						findViewById(R.id.markerTitle).setVisibility(View.VISIBLE);
+			            findViewById(R.id.markerDescription).setVisibility(View.VISIBLE);
+			            findViewById(R.id.buttonAccept).setVisibility(View.VISIBLE);
+			            findViewById(R.id.buttonCancel).setVisibility(View.VISIBLE);
+			            findViewById(R.id.spinnerColor).setVisibility(View.VISIBLE);
+			            findViewById(R.id.buttonDeletemarker).setVisibility(View.INVISIBLE);
+			            findViewById(R.id.buttonLeft).setVisibility(View.INVISIBLE);
+			            findViewById(R.id.buttonRight).setVisibility(View.GONE);
+			            findViewById(R.id.buttonInsertar).setVisibility(View.INVISIBLE);
+			            findViewById(R.id.buttonStreetViewNoMarker).setVisibility(View.INVISIBLE);
+			    		
+			            
+			            
+			            EditText title = (EditText)findViewById(R.id.markerTitle);
+			            EditText description = (EditText)findViewById(R.id.markerDescription);
+			            
+			            if(idioma.equals("spanish")){
+			            	title.setText("Título");
+			                description.setText("Descripción");
+			            }
+			            else{
+			            	title.setText("Title");
+			                description.setText("Description");
+			            }
+			            
+			            UiSettings mapInterface = googleMap.getUiSettings();
+			    		mapInterface.setScrollGesturesEnabled(false);
+			            
+			            latLng = onLongClickMarker;
+			            modoaddmarker = true;
+			            modomenuactivado = false;
+			        }
+					break;
+				case R.id.buttonStreetViewNoMarker:
+					if (action==MotionEvent.ACTION_DOWN )
+			        {
+			            v.setBackgroundResource(R.drawable.lightyellowbutton);
+			        }
+			        if (action==MotionEvent.ACTION_UP)
+			        {
+			            v.setBackgroundResource(R.drawable.yellowbutton);
+			            findViewById(R.id.buttonInsertar).setVisibility(View.INVISIBLE);
+			            findViewById(R.id.buttonStreetViewNoMarker).setVisibility(View.INVISIBLE);
+			            
+			            Intent i = new Intent (this, StreetView.class);
+			            i.putExtra("lat", onLongClickMarker.latitude);
+			            i.putExtra("long", onLongClickMarker.longitude);
+			            
+			            modomenuactivado = false;
+			            
+			            UiSettings mapInterface = googleMap.getUiSettings();
+			    		mapInterface.setScrollGesturesEnabled(true);
+			            
+			            startActivity(i);
+			        	
+			        }
+					break;
 		}
 		return true;
     } // End of click actions
@@ -1132,32 +1228,16 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
     @Override
 	public void onMapLongClick(LatLng marker) {
     	if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado){
-    		findViewById(R.id.markerTitle).setVisibility(View.VISIBLE);
-            findViewById(R.id.markerDescription).setVisibility(View.VISIBLE);
-            findViewById(R.id.buttonAccept).setVisibility(View.VISIBLE);
-            findViewById(R.id.buttonCancel).setVisibility(View.VISIBLE);
-            findViewById(R.id.spinnerColor).setVisibility(View.VISIBLE);
-            findViewById(R.id.buttonDeletemarker).setVisibility(View.INVISIBLE);
-            findViewById(R.id.buttonLeft).setVisibility(View.INVISIBLE);
-            findViewById(R.id.buttonRight).setVisibility(View.GONE);
     		
-            EditText title = (EditText)findViewById(R.id.markerTitle);
-            EditText description = (EditText)findViewById(R.id.markerDescription);
-            
-            if(idioma.equals("spanish")){
-            	title.setText("Título");
-                description.setText("Descripción");
-            }
-            else{
-            	title.setText("Title");
-                description.setText("Description");
-            }
-            
-            UiSettings mapInterface = googleMap.getUiSettings();
+    		//mostrar los dos nuevos botones del nuevo menú (insertar y ver en street view)
+    		findViewById(R.id.buttonInsertar).setVisibility(View.VISIBLE);
+    		findViewById(R.id.buttonStreetViewNoMarker).setVisibility(View.VISIBLE);
+    		
+    		modomenuactivado = true;
+    		onLongClickMarker = marker;
+    		
+    		UiSettings mapInterface = googleMap.getUiSettings();
     		mapInterface.setScrollGesturesEnabled(false);
-            
-            latLng = marker;
-            modoaddmarker = true;
     	}
 	}
 
@@ -1169,6 +1249,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 		if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado){
 			findViewById(R.id.buttonTrazaruta).setVisibility(View.VISIBLE);
 			findViewById(R.id.buttonUpdateMarker).setVisibility(View.VISIBLE);
+			findViewById(R.id.ButtonStreetView).setVisibility(View.VISIBLE);
 			
 			UiSettings mapInterface = googleMap.getUiSettings();
 			mapInterface.setScrollGesturesEnabled(false);
@@ -1192,6 +1273,9 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 	    	View buttonok = findViewById(R.id.buttonOK);
 	    	View buttonTrazaruta = findViewById(R.id.buttonTrazaruta);
 	    	View buttonUpdateMarker = findViewById(R.id.buttonUpdateMarker);
+	    	View buttonStreetView = findViewById(R.id.ButtonStreetView);
+	    	View buttonStreetViewNoMarker = findViewById(R.id.buttonStreetViewNoMarker);
+	    	View buttonInsertar = findViewById(R.id.buttonInsertar);
 	    	
 	    	if (buttonok.getVisibility() == View.VISIBLE){
 	    		buttonok.setVisibility(View.GONE);
@@ -1207,6 +1291,9 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 	    	else if (modomenuactivado){
 	    		buttonTrazaruta.setVisibility(View.GONE);
 	    		buttonUpdateMarker.setVisibility(View.GONE);
+	    		buttonStreetView.setVisibility(View.GONE);
+	    		buttonStreetViewNoMarker.setVisibility(View.GONE);
+	    		buttonInsertar.setVisibility(View.GONE);
 	    		modomenuactivado = false;
 	    		
 	    		// Make the map draggable again
@@ -1461,7 +1548,6 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		switch(v.getId()){
 		/**
 		 * botón que abre la barra para buscar una posición a través de una dirección

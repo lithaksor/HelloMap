@@ -98,8 +98,21 @@ public class ViewsInitializer {
         inputs.setVisibility(View.GONE);
         inputs.setOnTouchListener(actividadMapa);
         
+        inputs=actividadMapa.findViewById(R.id.ButtonStreetView);
+        inputs.setVisibility(View.INVISIBLE);
+        inputs.setOnTouchListener(actividadMapa);
+        
+        inputs=actividadMapa.findViewById(R.id.buttonStreetViewNoMarker);
+        inputs.setVisibility(View.INVISIBLE);
+        inputs.setOnTouchListener(actividadMapa);
+        
+        inputs=actividadMapa.findViewById(R.id.buttonInsertar);
+        inputs.setVisibility(View.GONE);
+        inputs.setOnTouchListener(actividadMapa);
+        
         inputs= actividadMapa.findViewById(R.id.spinnerColor);
         inputs.setVisibility(View.GONE);
+        
         inputs= actividadMapa.findViewById(R.id.spinnerMarkers);
         inputs.setVisibility(View.GONE);
 	}

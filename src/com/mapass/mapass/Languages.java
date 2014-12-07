@@ -34,6 +34,8 @@ public class Languages {
 		buttons.setText("From current position to a marker");
 		buttons = (Button) actividadPrincipal.findViewById(R.id.buttonMarkerToMarker);
 		buttons.setText("From selected marker to another marker");
+		buttons = (Button) actividadPrincipal.findViewById(R.id.buttonInsertar);
+		buttons.setText("Add a new marker");
 		
 		RadioGroup rgroup = (RadioGroup) actividadPrincipal.findViewById(R.id.radioGroup1);
 		RadioButton rbutton = (RadioButton) rgroup.getChildAt(0);
@@ -80,7 +82,9 @@ public class Languages {
 		buttons.setText("Desde mi posición a un marcador");
 		buttons = (Button) actividadPrincipal.findViewById(R.id.buttonMarkerToMarker);
 		buttons.setText("Desde este marcador a otro");
-
+		buttons = (Button) actividadPrincipal.findViewById(R.id.buttonInsertar);
+		buttons.setText("Añadir un marcador nuevo");
+		
 		RadioGroup rgroup = (RadioGroup) actividadPrincipal.findViewById(R.id.radioGroup1);
 		RadioButton rbutton = (RadioButton) rgroup.getChildAt(0);
 		rbutton.setText("Voy en vehículo");

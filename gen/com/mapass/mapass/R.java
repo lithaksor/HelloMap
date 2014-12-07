@@ -1480,6 +1480,7 @@ containing a value of this type.
         public static final int yellowbutton=0x7f02008f;
     }
     public static final class id {
+        public static final int ButtonStreetView=0x7f08006b;
         public static final int action_bar=0x7f08002e;
         public static final int action_bar_activity_content=0x7f080027;
         public static final int action_bar_container=0x7f08002d;
@@ -1500,6 +1501,7 @@ containing a value of this type.
         public static final int buttonChangemap=0x7f08005a;
         public static final int buttonDeletemarker=0x7f080055;
         public static final int buttonHelp=0x7f08005e;
+        public static final int buttonInsertar=0x7f080069;
         public static final int buttonLang=0x7f080060;
         public static final int buttonLeft=0x7f080057;
         public static final int buttonMarkerToMarker=0x7f080064;
@@ -1509,6 +1511,7 @@ containing a value of this type.
         public static final int buttonRight=0x7f080058;
         public static final int buttonSave=0x7f080054;
         public static final int buttonSearch=0x7f080059;
+        public static final int buttonStreetViewNoMarker=0x7f08006a;
         public static final int buttonTrazaruta=0x7f080061;
         public static final int buttonUpdateMarker=0x7f080062;
         public static final int buttonplaceholder=0x7f08005f;
@@ -1575,6 +1578,7 @@ containing a value of this type.
         public static final int spinnerColor=0x7f080056;
         public static final int spinnerMarkers=0x7f080068;
         public static final int split_action_bar=0x7f080030;
+        public static final int streetviewpanorama=0x7f08006c;
         public static final int strict_sandbox=0x7f080009;
         public static final int submit_area=0x7f08004b;
         public static final int tabMode=0x7f080015;
@@ -1639,7 +1643,8 @@ containing a value of this type.
         public static final int abc_simple_decor=0x7f030017;
         public static final int activity_main=0x7f030018;
         public static final int activity_main2=0x7f030019;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001a;
+        public static final int activity_streetview=0x7f03001a;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
