@@ -203,7 +203,7 @@
         android:id="@+id/spinnerColor"
         android:layout_width="108dp"
         android:layout_height="44dp"
-        android:layout_x="227dp"
+        android:layout_x="229dp"
         android:layout_y="85dp"
         android:background="@drawable/whitebutton"
         android:spinnerMode="dropdown" />

@@ -166,6 +166,7 @@
         android:layout_width="49dp"
         android:layout_height="49dp"
         android:layout_marginLeft="37dp"
+        android:layout_alignParentBottom="true"
         android:layout_x="184dp"
         android:layout_y="1101dp"
         android:background="@drawable/changemap3" />
@@ -174,6 +175,7 @@
         android:id="@+id/buttonSearch"
         android:layout_width="82dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_x="234dp"
         android:layout_y="1101dp"
         android:clickable="true"
@@ -183,6 +185,7 @@
         android:id="@+id/buttonHelp"
         android:layout_width="82dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_x="308dp"
         android:layout_y="1101dp"
         android:src="@drawable/help" />
@@ -192,6 +195,7 @@
         android:layout_width="82dp"
         android:layout_height="wrap_content"
         android:layout_x="386dp"
+        android:layout_alignParentBottom="true"
         android:layout_y="1101dp"
         android:src="@drawable/language" />
 
@@ -219,7 +223,7 @@
         android:id="@+id/spinnerColor"
         android:layout_width="108dp"
         android:layout_height="44dp"
-        android:layout_x="406dp"
+        android:layout_x="410dp"
         android:layout_y="85dp"
         android:background="@drawable/whitebutton"
         android:spinnerMode="dropdown" />

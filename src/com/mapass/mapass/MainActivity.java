@@ -617,27 +617,111 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 				
 				//Botón para trazar ruta desde posición actual a marcador seleccionado
 				case R.id.buttonPositionToMarker:
-					
-					AlertDialog confirm = new AlertDialog.Builder(this).create();
-					if(idioma.equals("spanish")){
-						if(currentPosition!=null){
-							confirm.setTitle("Confirma");
-							confirm.setMessage("¿Trazar ruta desde tu posición actual a " + currentPosition.marker.getTitle() +"?");
-							confirm.setButton("Sí", new DialogInterface.OnClickListener() {
-								
+					if (action==MotionEvent.ACTION_DOWN )
+		            {
+		                v.setBackgroundResource(R.drawable.lightgreybutton);
+		            }
+		            if (action==MotionEvent.ACTION_UP)
+		            {
+		                v.setBackgroundResource(R.drawable.greybutton);
+						AlertDialog confirm = new AlertDialog.Builder(this).create();
+						if(idioma.equals("spanish")){
+							if(currentPosition!=null){
+								confirm.setTitle("Confirma");
+								confirm.setMessage("¿Trazar ruta desde tu posición actual a " + currentPosition.marker.getTitle() +"?");
+								confirm.setButton("Sí", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										// Close traceroute menu 
+										findViewById(R.id.buttonCancel).setVisibility(View.INVISIBLE);
+							    		findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
+							    		findViewById(R.id.spinnerMarkers).setVisibility(View.INVISIBLE);
+							    		findViewById(R.id.buttonPositionToMarker).setVisibility(View.GONE);
+							    		findViewById(R.id.radioGroup1).setVisibility(View.GONE);
+							    		findViewById(R.id.buttonMarkerToMarker).setVisibility(View.GONE);
+							    		
+										final Spinner spinMarcadores = (Spinner) findViewById(R.id.spinnerMarkers);
+							    		RadioButton r = (RadioButton) findViewById(R.id.radioAndando);
+								        
+							    		// obtener color elegido
+							    		Spinner spinner = (Spinner) findViewById(R.id.spinnerColor);
+								        color = spinner.getSelectedItem().toString();
+								        if(color.equals("Azul")|| color.equals("Blue"))
+								        	coloruta = Color.BLUE;
+								        else if (color.equals("Magenta"))
+								        	coloruta = Color.MAGENTA;
+								        else if (color.equals("Cyan"))
+								        	coloruta = Color.CYAN;
+								        else if (color.equals("Rojo")|| color.equals("Red"))
+								        	coloruta = Color.RED;
+								        else if (color.equals("Verde")|| color.equals("Green"))
+								        	coloruta = Color.GREEN;
+								        else if (color.equals("Amarillo")|| color.equals("Yellow"))
+								        	coloruta = Color.YELLOW;
+								        else
+								        	coloruta = Color.LTGRAY;
+								        
+								     // obtener el objeto marcador elegido en el spinner
+							    		String destino = spinMarcadores.getSelectedItem().toString();
+								        
+							    		// Obtener si va andando o en coche
+							    		String modo;
+							    		if(r.isSelected())
+							    			modo = "walking";
+							    		else
+							    			modo = "driving";
+							    		
+							    		// Get & Draw path
+							    		for(int i=0;i<markers.size();i++){
+							    			if (markers.get(i).getMarker().getTitle().equals(destino)){
+							    				// Get & Draw path
+												DrawPath dPath = new DrawPath(MainActivity.this, coloruta);
+							                    String path = dPath.makeURL(
+							                    		currentPosition.marker.getPosition().latitude, 
+							                    		currentPosition.marker.getPosition().longitude,
+							                    		markers.get(i).getMarker().getPosition().latitude,
+							                    		markers.get(i).getMarker().getPosition().longitude, modo);
+							                    new connectAsyncTask().execute(path);
+							    			}		
+							    		}
+					                    
+										//Make map draggable again
+							    		UiSettings mapInterface = googleMap.getUiSettings();
+							    		mapInterface.setScrollGesturesEnabled(true);
+							    		
+							    		modotrazarutaactivado = false;
+									}
+								});
+								confirm.setButton2("No", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {}
+								});
+								confirm.show();
+							}
+							else
+								Toast.makeText(this, "No se encuentra tu posición actual", Toast.LENGTH_SHORT).show();
+						}
+						else if(idioma.equals("english")){
+							if(currentPosition!=null){
+								confirm.setTitle("Confirm");
+								confirm.setMessage("Trace route from your current position to " + currentPosition.marker.getTitle() +"?");
+								confirm.setButton("Yes", new DialogInterface.OnClickListener() {
+										
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-									// Close traceroute menu 
+									// Close traceroute menu
 									findViewById(R.id.buttonCancel).setVisibility(View.INVISIBLE);
 						    		findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
 						    		findViewById(R.id.spinnerMarkers).setVisibility(View.INVISIBLE);
 						    		findViewById(R.id.buttonPositionToMarker).setVisibility(View.GONE);
 						    		findViewById(R.id.radioGroup1).setVisibility(View.GONE);
 						    		findViewById(R.id.buttonMarkerToMarker).setVisibility(View.GONE);
-						    		
+	
 									final Spinner spinMarcadores = (Spinner) findViewById(R.id.spinnerMarkers);
 						    		RadioButton r = (RadioButton) findViewById(R.id.radioAndando);
-							        
+						    		
 						    		// obtener color elegido
 						    		Spinner spinner = (Spinner) findViewById(R.id.spinnerColor);
 							        color = spinner.getSelectedItem().toString();
@@ -655,11 +739,11 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 							        	coloruta = Color.YELLOW;
 							        else
 							        	coloruta = Color.LTGRAY;
-							        
+						    		
 							     // obtener el objeto marcador elegido en el spinner
 						    		String destino = spinMarcadores.getSelectedItem().toString();
-							        
-						    		// Obtener si va andando o en coche
+						    		
+						    		// Obtener cual radio button está pulsado
 						    		String modo;
 						    		if(r.isSelected())
 						    			modo = "walking";
@@ -679,102 +763,25 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 						                    new connectAsyncTask().execute(path);
 						    			}		
 						    		}
-				                    
-									//Make map draggable again
-						    		UiSettings mapInterface = googleMap.getUiSettings();
-						    		mapInterface.setScrollGesturesEnabled(true);
-						    		
-						    		modotrazarutaactivado = false;
-								}
-							});
-							confirm.setButton2("No", new DialogInterface.OnClickListener() {
-								
-								@Override
-								public void onClick(DialogInterface dialog, int which) {}
-							});
-							confirm.show();
-						}
-						else
-							Toast.makeText(this, "No se encuentra tu posición actual", Toast.LENGTH_SHORT).show();
-					}
-					else if(idioma.equals("english")){
-						if(currentPosition!=null){
-							confirm.setTitle("Confirm");
-							confirm.setMessage("Trace route from your current position to " + currentPosition.marker.getTitle() +"?");
-							confirm.setButton("Yes", new DialogInterface.OnClickListener() {
-									
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								// Close traceroute menu
-								findViewById(R.id.buttonCancel).setVisibility(View.INVISIBLE);
-					    		findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
-					    		findViewById(R.id.spinnerMarkers).setVisibility(View.INVISIBLE);
-					    		findViewById(R.id.buttonPositionToMarker).setVisibility(View.GONE);
-					    		findViewById(R.id.radioGroup1).setVisibility(View.GONE);
-					    		findViewById(R.id.buttonMarkerToMarker).setVisibility(View.GONE);
-
-								final Spinner spinMarcadores = (Spinner) findViewById(R.id.spinnerMarkers);
-					    		RadioButton r = (RadioButton) findViewById(R.id.radioAndando);
-					    		
-					    		// obtener color elegido
-					    		Spinner spinner = (Spinner) findViewById(R.id.spinnerColor);
-						        color = spinner.getSelectedItem().toString();
-						        if(color.equals("Azul")|| color.equals("Blue"))
-						        	coloruta = Color.BLUE;
-						        else if (color.equals("Magenta"))
-						        	coloruta = Color.MAGENTA;
-						        else if (color.equals("Cyan"))
-						        	coloruta = Color.CYAN;
-						        else if (color.equals("Rojo")|| color.equals("Red"))
-						        	coloruta = Color.RED;
-						        else if (color.equals("Verde")|| color.equals("Green"))
-						        	coloruta = Color.GREEN;
-						        else if (color.equals("Amarillo")|| color.equals("Yellow"))
-						        	coloruta = Color.YELLOW;
-						        else
-						        	coloruta = Color.LTGRAY;
-					    		
-						     // obtener el objeto marcador elegido en el spinner
-					    		String destino = spinMarcadores.getSelectedItem().toString();
-					    		
-					    		// Obtener cual radio button está pulsado
-					    		String modo;
-					    		if(r.isSelected())
-					    			modo = "walking";
-					    		else
-					    			modo = "driving";
-					    		
-					    		// Get & Draw path
-					    		for(int i=0;i<markers.size();i++){
-					    			if (markers.get(i).getMarker().getTitle().equals(destino)){
-					    				// Get & Draw path
-										DrawPath dPath = new DrawPath(MainActivity.this, coloruta);
-					                    String path = dPath.makeURL(
-					                    		currentPosition.marker.getPosition().latitude, 
-					                    		currentPosition.marker.getPosition().longitude,
-					                    		markers.get(i).getMarker().getPosition().latitude,
-					                    		markers.get(i).getMarker().getPosition().longitude, modo);
-					                    new connectAsyncTask().execute(path);
-					    			}		
-					    		}
-					                    
-										//Make map draggable again
-							    		UiSettings mapInterface = googleMap.getUiSettings();
-							    		mapInterface.setScrollGesturesEnabled(true);
-							    		
-							    		modotrazarutaactivado = false;
-									}
-								});
-								confirm.setButton2("No", new DialogInterface.OnClickListener() {
-									
-									@Override
-									public void onClick(DialogInterface dialog, int which) {}
+						                    
+											//Make map draggable again
+								    		UiSettings mapInterface = googleMap.getUiSettings();
+								    		mapInterface.setScrollGesturesEnabled(true);
+								    		
+								    		modotrazarutaactivado = false;
+										}
 									});
-								confirm.show();
+									confirm.setButton2("No", new DialogInterface.OnClickListener() {
+										
+										@Override
+										public void onClick(DialogInterface dialog, int which) {}
+										});
+									confirm.show();
+							}
+							else 
+								Toast.makeText(this, "Can't find your current position", Toast.LENGTH_SHORT).show();
 						}
-						else 
-							Toast.makeText(this, "Can't find your current position", Toast.LENGTH_SHORT).show();
-					}
+		            }
 					break;
 					//Trazar ruta de marcador a marcador
 				case R.id.buttonMarkerToMarker:
@@ -785,17 +792,96 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 			        if (action==MotionEvent.ACTION_UP)
 			        {
 			            v.setBackgroundResource(R.drawable.greybutton);
-			        }
-					confirm = new AlertDialog.Builder(this).create();
-					final Spinner spinMarcadores = (Spinner) findViewById(R.id.spinnerMarkers);
-					if(idioma.equals("spanish")){
-						if(spinMarcadores.getCount()>1){
+			        
+						AlertDialog confirm = new AlertDialog.Builder(this).create();
+						final Spinner spinMarcadores = (Spinner) findViewById(R.id.spinnerMarkers);
+						if(idioma.equals("spanish")){
+							if(spinMarcadores.getCount()>1){
+								if(isNetworkAvailable()|| is3gAvailable()){
+									confirm.setTitle("Confirma");
+									confirm.setMessage("¿Trazar ruta desde " + markers.get(currentMarker).marker.getTitle() 
+											+ " a " + spinMarcadores.getSelectedItem().toString() +"?");
+									confirm.setButton("Sí", new DialogInterface.OnClickListener() {
+										
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											// Close traceroute menu 
+											findViewById(R.id.buttonCancel).setVisibility(View.INVISIBLE);
+								    		findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
+								    		findViewById(R.id.spinnerMarkers).setVisibility(View.INVISIBLE);
+								    		findViewById(R.id.buttonPositionToMarker).setVisibility(View.GONE);
+								    		findViewById(R.id.radioGroup1).setVisibility(View.GONE);
+								    		findViewById(R.id.buttonMarkerToMarker).setVisibility(View.GONE);
+								    		RadioButton r = (RadioButton) findViewById(R.id.radioAndando);
+									        
+								    		// obtener color elegido
+								    		Spinner spinner = (Spinner) findViewById(R.id.spinnerColor);
+									        color = spinner.getSelectedItem().toString();
+									        if(color.equals("Azul")|| color.equals("Blue"))
+									        	coloruta = Color.BLUE;
+									        else if (color.equals("Magenta"))
+									        	coloruta = Color.MAGENTA;
+									        else if (color.equals("Cyan"))
+									        	coloruta = Color.CYAN;
+									        else if (color.equals("Rojo")|| color.equals("Red"))
+									        	coloruta = Color.RED;
+									        else if (color.equals("Verde")|| color.equals("Green"))
+									        	coloruta = Color.GREEN;
+									        else if (color.equals("Amarillo")|| color.equals("Yellow"))
+									        	coloruta = Color.YELLOW;
+									        else
+									        	coloruta = Color.LTGRAY;
+								    		
+								    		// obtener el objeto marcador elegido en el spinner
+								    		String destino = spinMarcadores.getSelectedItem().toString();
+								    		
+								    		String modo;
+								    		if(r.isSelected())
+								    			modo = "walking";
+								    		else
+								    			modo = "driving";
+								    		
+								    		for(int i=0;i<markers.size();i++){
+								    			if (markers.get(i).getMarker().getTitle().equals(destino)){
+								    				// Get & Draw path
+													DrawPath dPath = new DrawPath(MainActivity.this, coloruta);
+								                    String path = dPath.makeURL(
+								                    		markers.get(currentMarker).marker.getPosition().latitude, 
+								                    		markers.get(currentMarker).marker.getPosition().longitude,
+								                    		markers.get(i).getMarker().getPosition().latitude,
+								                    		markers.get(i).getMarker().getPosition().longitude, modo);
+								                    new connectAsyncTask().execute(path);
+								    			}		
+								    		}
+								    		
+											//Make map draggable again
+								    		UiSettings mapInterface = googleMap.getUiSettings();
+								    		mapInterface.setScrollGesturesEnabled(true);
+								    		
+								    		modotrazarutaactivado = false;
+										}
+									});
+									confirm.setButton2("No", new DialogInterface.OnClickListener() {
+										
+										@Override
+										public void onClick(DialogInterface dialog, int which) {}
+									});
+									confirm.show();
+								}
+								else
+									Toast.makeText(this, "Necesitas almenos dos marcadores en tu lista", Toast.LENGTH_SHORT).show();
+							}
+							else
+								Toast.makeText(this, "Necesitas internet para trazar una ruta", Toast.LENGTH_SHORT).show();
+						}
+						else if(idioma.equals("english")){
 							if(isNetworkAvailable()|| is3gAvailable()){
-								confirm.setTitle("Confirma");
-								confirm.setMessage("¿Trazar ruta desde " + markers.get(currentMarker).marker.getTitle() 
-										+ " a " + spinMarcadores.getSelectedItem().toString() +"?");
-								confirm.setButton("Sí", new DialogInterface.OnClickListener() {
-									
+								if(spinMarcadores.getCount()>1){
+									confirm.setTitle("Confirm");
+									confirm.setMessage("Trace route from " + markers.get(currentMarker).marker.getTitle() 
+											+ " to " + spinMarcadores.getSelectedItem().toString() +"?");
+									confirm.setButton("Yes", new DialogInterface.OnClickListener() {
+											
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
 										// Close traceroute menu 
@@ -806,7 +892,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 							    		findViewById(R.id.radioGroup1).setVisibility(View.GONE);
 							    		findViewById(R.id.buttonMarkerToMarker).setVisibility(View.GONE);
 							    		RadioButton r = (RadioButton) findViewById(R.id.radioAndando);
-								        
+	
 							    		// obtener color elegido
 							    		Spinner spinner = (Spinner) findViewById(R.id.spinnerColor);
 								        color = spinner.getSelectedItem().toString();
@@ -827,13 +913,13 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 							    		
 							    		// obtener el objeto marcador elegido en el spinner
 							    		String destino = spinMarcadores.getSelectedItem().toString();
-							    		
 							    		String modo;
 							    		if(r.isSelected())
 							    			modo = "walking";
 							    		else
 							    			modo = "driving";
 							    		
+							    		// Get & Draw path
 							    		for(int i=0;i<markers.size();i++){
 							    			if (markers.get(i).getMarker().getTitle().equals(destino)){
 							    				// Get & Draw path
@@ -846,105 +932,27 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 							                    new connectAsyncTask().execute(path);
 							    			}		
 							    		}
-							    		
-										//Make map draggable again
+							    		//Make map draggable again
 							    		UiSettings mapInterface = googleMap.getUiSettings();
 							    		mapInterface.setScrollGesturesEnabled(true);
 							    		
 							    		modotrazarutaactivado = false;
-									}
-								});
-								confirm.setButton2("No", new DialogInterface.OnClickListener() {
-									
-									@Override
-									public void onClick(DialogInterface dialog, int which) {}
-								});
-								confirm.show();
-							}
-							else
-								Toast.makeText(this, "Necesitas almenos dos marcadores en tu lista", Toast.LENGTH_SHORT).show();
-						}
-						else
-							Toast.makeText(this, "Necesitas internet para trazar una ruta", Toast.LENGTH_SHORT).show();
-					}
-					else if(idioma.equals("english")){
-						if(isNetworkAvailable()|| is3gAvailable()){
-							if(spinMarcadores.getCount()>1){
-								confirm.setTitle("Confirm");
-								confirm.setMessage("Trace route from " + markers.get(currentMarker).marker.getTitle() 
-										+ " to " + spinMarcadores.getSelectedItem().toString() +"?");
-								confirm.setButton("Yes", new DialogInterface.OnClickListener() {
-										
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									// Close traceroute menu 
-									findViewById(R.id.buttonCancel).setVisibility(View.INVISIBLE);
-						    		findViewById(R.id.spinnerColor).setVisibility(View.INVISIBLE);
-						    		findViewById(R.id.spinnerMarkers).setVisibility(View.INVISIBLE);
-						    		findViewById(R.id.buttonPositionToMarker).setVisibility(View.GONE);
-						    		findViewById(R.id.radioGroup1).setVisibility(View.GONE);
-						    		findViewById(R.id.buttonMarkerToMarker).setVisibility(View.GONE);
-						    		RadioButton r = (RadioButton) findViewById(R.id.radioAndando);
-
-						    		// obtener color elegido
-						    		Spinner spinner = (Spinner) findViewById(R.id.spinnerColor);
-							        color = spinner.getSelectedItem().toString();
-							        if(color.equals("Azul")|| color.equals("Blue"))
-							        	coloruta = Color.BLUE;
-							        else if (color.equals("Magenta"))
-							        	coloruta = Color.MAGENTA;
-							        else if (color.equals("Cyan"))
-							        	coloruta = Color.CYAN;
-							        else if (color.equals("Rojo")|| color.equals("Red"))
-							        	coloruta = Color.RED;
-							        else if (color.equals("Verde")|| color.equals("Green"))
-							        	coloruta = Color.GREEN;
-							        else if (color.equals("Amarillo")|| color.equals("Yellow"))
-							        	coloruta = Color.YELLOW;
-							        else
-							        	coloruta = Color.LTGRAY;
-						    		
-						    		// obtener el objeto marcador elegido en el spinner
-						    		String destino = spinMarcadores.getSelectedItem().toString();
-						    		String modo;
-						    		if(r.isSelected())
-						    			modo = "walking";
-						    		else
-						    			modo = "driving";
-						    		
-						    		// Get & Draw path
-						    		for(int i=0;i<markers.size();i++){
-						    			if (markers.get(i).getMarker().getTitle().equals(destino)){
-						    				// Get & Draw path
-											DrawPath dPath = new DrawPath(MainActivity.this, coloruta);
-						                    String path = dPath.makeURL(
-						                    		markers.get(currentMarker).marker.getPosition().latitude, 
-						                    		markers.get(currentMarker).marker.getPosition().longitude,
-						                    		markers.get(i).getMarker().getPosition().latitude,
-						                    		markers.get(i).getMarker().getPosition().longitude, modo);
-						                    new connectAsyncTask().execute(path);
-						    			}		
-						    		}
-						    		//Make map draggable again
-						    		UiSettings mapInterface = googleMap.getUiSettings();
-						    		mapInterface.setScrollGesturesEnabled(true);
-						    		
-						    		modotrazarutaactivado = false;
-										}
-									});
-									confirm.setButton2("No", new DialogInterface.OnClickListener() {
-										
-										@Override
-										public void onClick(DialogInterface dialog, int which) {}
+											}
 										});
-									confirm.show();
+										confirm.setButton2("No", new DialogInterface.OnClickListener() {
+											
+											@Override
+											public void onClick(DialogInterface dialog, int which) {}
+											});
+										confirm.show();
+								}
+								else 
+									Toast.makeText(this, "You need at least 2 markers in your list", Toast.LENGTH_SHORT).show();
 							}
 							else 
-								Toast.makeText(this, "You need at least 2 markers in your list", Toast.LENGTH_SHORT).show();
+								Toast.makeText(this, "You need internet to trace a route", Toast.LENGTH_SHORT).show();
 						}
-						else 
-							Toast.makeText(this, "You need internet to trace a route", Toast.LENGTH_SHORT).show();
-					}
+			        }
 					break;
 		}
 		return true;

@@ -64,7 +64,7 @@
         android:layout_width="80dp"
         android:layout_height="62dp"
         android:layout_x="239dp"
-        android:layout_y="1dp"
+        android:layout_y="0dp"
         android:background="@drawable/bluebutton"
         android:text="Borrar"
         android:textColor="#ffffff" />
@@ -169,7 +169,7 @@
         android:layout_width="112dp"
         android:layout_height="61dp"
         android:layout_x="0dp"
-        android:layout_y="1dp"
+        android:layout_y="0dp"
         android:background="@drawable/redbutton"
         android:text="Cancelar"
         android:textColor="#ffffff" />
@@ -200,8 +200,8 @@
 
     <Button
         android:id="@+id/buttonPositionToMarker"
-        android:layout_width="213dp"
-        android:layout_height="40dp"
+        android:layout_width="214dp"
+        android:layout_height="44dp"
         android:layout_x="0dp"
         android:layout_y="109dp"
         android:background="@drawable/greybutton"
@@ -211,15 +211,15 @@
     <Spinner
         android:id="@+id/spinnerMarkers"
         android:layout_width="108dp"
-        android:layout_height="40dp"
-        android:layout_x="213dp"
+        android:layout_height="44dp"
+        android:layout_x="214dp"
         android:layout_y="109dp"
         android:background="@drawable/whitebutton" />
 
     <Spinner
         android:id="@+id/spinnerColor"
         android:layout_width="108dp"
-        android:layout_height="37dp"
+        android:layout_height="44dp"
         android:layout_x="214dp"
         android:layout_y="72dp"
         android:background="@drawable/whitebutton"
