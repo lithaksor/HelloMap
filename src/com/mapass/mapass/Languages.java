@@ -44,9 +44,11 @@ public class Languages {
 		rbutton.setText("I'll use my legs");
 		
 		EditText edittexts = (EditText) actividadPrincipal.findViewById(R.id.markerTitle);
-		edittexts.setText("Title");
+		edittexts.setHint("Title");
 		edittexts = (EditText) actividadPrincipal.findViewById(R.id.markerDescription);
-		edittexts.setText("Description");
+		edittexts.setHint("Description");
+		edittexts = (EditText) actividadPrincipal.findViewById(R.id.editSearch);
+		edittexts.setHint("Input a place to find");
 		
 		 ArrayList<String> colors = new ArrayList<String>();
 		 
@@ -92,9 +94,11 @@ public class Languages {
 		rbutton.setText("Voy andando");
 		
 		EditText edittexts = (EditText) actividadPrincipal.findViewById(R.id.markerTitle);
-		edittexts.setText("Título");
+		edittexts.setHint("Título");
 		edittexts = (EditText) actividadPrincipal.findViewById(R.id.markerDescription);
-		edittexts.setText("Descripción");
+		edittexts.setHint("Descripción");
+		edittexts = (EditText) actividadPrincipal.findViewById(R.id.editSearch);
+		edittexts.setHint("Introduce un lugar a buscar");
 		
 		ArrayList<String> colors = new ArrayList<String>();
 		 

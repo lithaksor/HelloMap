@@ -58,7 +58,36 @@
         android:clickable="true"
         android:text="Modificar marcador"
         android:textColor="#ffffff" />
-
+    <Button
+        android:id="@+id/ButtonStreetView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_x="0dp"
+        android:layout_y="197dp"
+        android:background="@drawable/greenbutton"
+        android:clickable="true"
+        android:text="StreetView"
+        android:textColor="#ffffff" />
+	<Button
+        android:id="@+id/buttonInsertar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_x="0dp"
+        android:layout_y="0dp"
+        android:background="@drawable/purplebutton"
+        android:clickable="true"
+        android:text="Añadir un marcador nuevo"
+        android:textColor="#ffffff" />
+	<Button
+        android:id="@+id/buttonStreetViewNoMarker"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_x="0dp"
+        android:layout_y="97dp"
+        android:background="@drawable/yellowbutton"
+        android:clickable="true"
+        android:text="StreetView"
+        android:textColor="#ffffff" />
     <Button
         android:id="@+id/buttonAccept"
         android:layout_width="291dp"
@@ -178,12 +207,15 @@
         android:id="@+id/markerTitle"
         android:layout_width="231dp"
         android:layout_height="40dp"
-        android:layout_x="-1dp"
+        android:layout_x="0dp"
         android:layout_y="85dp"
         android:background="@drawable/editwhite"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Título" />
+        android:focusable="true"
+		android:focusableInTouchMode="true"
+        android:inputType="textPersonName" >
+        <requestFocus />
+    </EditText>
 
     <EditText
         android:id="@+id/markerDescription"
@@ -193,11 +225,10 @@
         android:layout_y="126dp"
         android:background="@drawable/editwhite"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Descripción" >
+        android:focusable="true"
+		android:focusableInTouchMode="true"
+        android:inputType="textPersonName"/>
 
-        <requestFocus />
-    </EditText>
 
     <Spinner
         android:id="@+id/spinnerColor"

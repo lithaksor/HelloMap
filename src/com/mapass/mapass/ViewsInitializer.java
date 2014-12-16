@@ -22,11 +22,9 @@ public class ViewsInitializer {
         // Make inputs invisible and set clicklisteners
         View inputs=actividadMapa.findViewById(R.id.markerTitle);
         inputs.setVisibility(View.INVISIBLE);
-        inputs.setOnTouchListener(actividadMapa);
         
         inputs=actividadMapa.findViewById(R.id.markerDescription);
         inputs.setVisibility(View.GONE);
-        inputs.setOnTouchListener(actividadMapa);
         
         inputs=actividadMapa.findViewById(R.id.buttonAccept);
         inputs.setVisibility(View.INVISIBLE);

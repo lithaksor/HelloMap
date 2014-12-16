@@ -59,7 +59,7 @@ import android.app.ProgressDialog;
  * 
  * Prioridades TODO:
  * 
- * 0. Comprobar si el teclado está sacado, y si lo está esconderlo (cuando se vaya a hacer alguna operación, ya que puede descuadrarse el menú)
+ * 0. Esconder teclado al pulsar algún botón (comprobar antes si está fuera o algo)
  * 1. Solucionar problema con el layout para que se vea bien en los distintos dispositivos moviles
  * 2. Mejorar seguridad del código del SQLite Helper y añadir filtros a los inputs del usuario
  * 3. Poner manual con nuevas opciones
@@ -521,22 +521,6 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 	            }
 			break;
 			
-			/**
-			 * Limpia el edit text del título del marcador
-			 */
-			case R.id.markerTitle:
-				EditText edit = (EditText) findViewById(R.id.markerTitle);
-				edit.setText("");
-				
-			break;
-			
-			/**
-			 * Limpia el edit text del snippet del marcador
-			 */
-			case R.id.markerDescription:
-				edit = (EditText) findViewById(R.id.markerDescription);
-				edit.setText("");
-			break;
 			
 				// Muestra el menú modificar que antes estaba en onwindowinfo
 				case R.id.buttonUpdateMarker:
@@ -971,15 +955,17 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 			        if (action==MotionEvent.ACTION_UP)
 			        {
 			            v.setBackgroundResource(R.drawable.greenbutton);
+
+			            modomenuactivado = false;
 			            
 			            findViewById(R.id.buttonTrazaruta).setVisibility(View.GONE);
 				        findViewById(R.id.buttonUpdateMarker).setVisibility(View.GONE);
 				        findViewById(R.id.ButtonStreetView).setVisibility(View.INVISIBLE);
 			            
+				        UiSettings mapInterface = googleMap.getUiSettings();
+			    		mapInterface.setScrollGesturesEnabled(true);
+				        
 			            Intent i = new Intent (this, StreetView.class);
-			            
-			            modomenuactivado = false;
-			            
 			            i.putExtra("lat", markers.get(currentMarker).getMarker().getPosition().latitude);
 			            i.putExtra("long", markers.get(currentMarker).getMarker().getPosition().longitude);
 			            startActivity(i);
@@ -1004,18 +990,21 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 			            findViewById(R.id.buttonInsertar).setVisibility(View.INVISIBLE);
 			            findViewById(R.id.buttonStreetViewNoMarker).setVisibility(View.INVISIBLE);
 			    		
-			            
-			            
 			            EditText title = (EditText)findViewById(R.id.markerTitle);
 			            EditText description = (EditText)findViewById(R.id.markerDescription);
 			            
+		            	title.setFocusable(true);
+		            	title.setFocusableInTouchMode(true);
+		                description.setFocusable(true);
+		                description.setFocusableInTouchMode(true);
+			            
 			            if(idioma.equals("spanish")){
-			            	title.setText("Título");
-			                description.setText("Descripción");
+			            	title.setHint("Título");
+			                description.setHint("Descripción");
 			            }
 			            else{
-			            	title.setText("Title");
-			                description.setText("Description");
+			            	title.setHint("Title");
+			                description.setHint("Description");
 			            }
 			            
 			            UiSettings mapInterface = googleMap.getUiSettings();
@@ -1227,7 +1216,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
      */
     @Override
 	public void onMapLongClick(LatLng marker) {
-    	if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado){
+    	if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado && !modoaddmarker){
     		
     		//mostrar los dos nuevos botones del nuevo menú (insertar y ver en street view)
     		findViewById(R.id.buttonInsertar).setVisibility(View.VISIBLE);
@@ -1621,7 +1610,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 			 */
 			case R.id.buttonRight:
 				try{
-					if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado){
+					if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado && !modoaddmarker){
 						if(!markers.isEmpty()){
 							currentMarker++;
 							if (currentMarker>=markers.size()) 
@@ -1652,7 +1641,7 @@ public class MainActivity extends FragmentActivity implements OnMarkerClickListe
 			 */
 			case R.id.buttonLeft:
 				try{
-					if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado){
+					if(!modomodificaractivado && !modomenuactivado && !modotrazarutaactivado && !modoaddmarker){
 						if(!markers.isEmpty()){
 							currentMarker--;
 							if (currentMarker<0) 
